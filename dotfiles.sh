@@ -1,7 +1,7 @@
 #!/bin/sh
 
 #dotfiles=(.bash_profile .railsrc .vimrc .gitconfig .gemrc)
-dotfiles=(.railsrc .gemrc)
+dotfiles=(.railsrc .gemrc .vimrc)
 
 for i in ${dotfiles[@]}; do
   ln -sf ~/dotfiles/$i ~/$i
