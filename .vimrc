@@ -119,26 +119,27 @@ nnoremap ; :
 
 
 " 画面分割
-nnoremap s <Nop> " sキーを潰す"
-nnoremap ss :<C-u>sp<CR>
-nnoremap sv :<C-u>vs<CR>
+nnoremap s <Nop> " sキーを潰す
+nnoremap sv :<C-u>vs<CR> " 垂直分割
+" nnoremap ss :<C-u>sp<CR>
 
-nnoremap sj <C-w>j
-nnoremap sk <C-w>k
-nnoremap sl <C-w>l
-nnoremap sh <C-w>h
+" 画面移動
+nnoremap sj <C-w>j " ウィンドウを下に移動
+nnoremap sk <C-w>k " ウィンドウを上に移動
+nnoremap sl <C-w>l " ウィンドウを右に移動
+nnoremap sh <C-w>h " ウィンドウを左に移動
 
 
 " Tab
-nnoremap st :<C-u>tabnew<CR>
-nnoremap sn gt
-nnoremap sp gT
-nnoremap s= <C-w>=
-nnoremap sx :<C-u>tabclose<CR>
+nnoremap st :<C-u>tabnew<CR> " タブを新しく作る
+nnoremap sx :<C-u>tabclose<CR> " カレントタブを閉じる"
+nnoremap sn gt " 次のタブへ移動
+nnoremap sp gT " 前のタブへ戻る
+
 
 " 閉じる
-nnoremap sq :<C-u>q<CR>
-nnoremap sQ :<C-u>bd<CR>
+nnoremap sq :<C-u>q<CR> " ウィンドウを閉じる
+nnoremap sQ :<C-u>bd<CR> " バッファを閉じる
 
 
 " ノーマルモード
@@ -261,7 +262,8 @@ NeoBundleFetch 'Shougo/neobundle.vim'
 
 
 " HTML/CSS
-NeoBundle 'mattn/emmet-vim' " Emmet
+NeoBundle 'mattn/emmet-vim' " HTML/CSSコーディングを簡単に
+NeoBundle 'https://github.com/miripiruni/CSScomb-for-Vim.git' " CSSプロパティの整列
 
 
 " Utillity
@@ -298,7 +300,7 @@ NeoBundle 'vim-scripts/AnsiEsc.vim' " ログファイルを色づけしてくれ
 " Failler
 NeoBundle 'scrooloose/nerdtree' " サイドバー風にファイルの一覧を表示
 NeoBundle 'Shougo/unite.vim' " ファイル検索を便利に
-NeoBundle 'Shougo/neomru.vim' " Unite.vimで最近使ったファイルを表示できるようにする
+NeoBundle 'Shougo/neomru.vim' " Unite.vimでfile_mruするのに必要 http://jsapachehtml.hatenablog.com/entry/2014/03/14/135458
 
 
 " Statusline
@@ -323,7 +325,7 @@ filetype plugin indent on
 
 
 " インストールチェック
-"NeoBundleCheck
+NeoBundleCheck
 " }}}
 
 
@@ -338,69 +340,65 @@ let NERDTreeShowHidden = 1
 autocmd VimEnter * execute 'NERDTree'
 
 
-" ---------- vim-airline ----------
-"  タブラインをかっこ良く
-" let g:airline#extensions#tabline#enabled = 1
-" let g:airline#extensions#tabline#left_sep = ' '
-" let g:airline#extensions#tabline#left_alt_sep = '|'
-
-
 " ---------- Unite.vim ----------
 "インサートモードで開始
-" let g:unite_enable_start_insert=1
+let g:unite_enable_start_insert=1
 
 
 "ヒストリー/ヤンク機能を有効化
 let g:unite_source_history_yank_enable =1
 
 
-"prefix keyの設定
+" ファイルはタブで開くをデフォルトに
+call unite#custom_default_action('file', 'tabopen')
+
+
 nnoremap [unite] <Nop>
 nmap <Space>u [unite]
 
 
-"スペースキーとaキーでカレントディレクトリを表示
+" カレントディレクトリを表示
 nnoremap <silent> [unite]a :<C-u>UniteWithBufferDir -buffer-name=files file<CR>
 
 
-"スペースキーとfキーでバッファと最近開いたファイル一覧を表示
+" バッファと最近開いたファイル一覧を表示
 nnoremap <silent> [unite]f :<C-u>Unite<Space>buffer file_mru<CR>
 
 
-"スペースキーとdキーで最近開いたディレクトリを表示
+" 最近開いたディレクトリを表示
 nnoremap <silent> [unite]d :<C-u>Unite<Space>directory_mru<CR>
 
 
-"スペースキーとbキーでバッファを表示
+" バッファを表示
 nnoremap <silent> [unite]b :<C-u>Unite<Space>buffer<CR>
 
 
-"スペースキーとrキーでレジストリを表示
+" レジストリを表示
 nnoremap <silent> [unite]r :<C-u>Unite<Space>register<CR>
 
 
-"スペースキーとtキーでタブを表示
+" タブを表示
 nnoremap <silent> [unite]t :<C-u>Unite<Space>tab<CR>
 
 
-"スペースキーとhキーでヒストリ/ヤンクを表示
+" ヒストリ/ヤンクを表示
 nnoremap <silent> [unite]h :<C-u>Unite<Space>history/yank<CR>
 
 
-"スペースキーとoキーでoutline
+" outline
 nnoremap <silent> [unite]o :<C-u>Unite<Space>outline<CR>
 
 
-"スペースキーとENTERキーでfile_rec:!
+" ENTERキーでfile_rec:!
 nnoremap <silent> [unite]<CR> :<C-u>Unite<Space>file_rec:!<CR>
 
 
 "unite.vimを開いている間のキーマッピング
 autocmd FileType unite call s:unite_my_settings()
+
 function! s:unite_my_settings()"{{{
-" ESCでuniteを終了
-nmap <buffer> <ESC> <Plug>(unite_exit)
-p> " sキーを潰す"i
+  " ESCでuniteを終了
+  nmap <buffer> <ESC> <Plug>(unite_exit)
 endfunction"}}}
 
 
@@ -435,12 +433,19 @@ nnoremap <silent> [yank] :<C-u>YRShow<CR>
 let g:airline#extensions#tabline#enabled = 1
 let g:airline_left_sep = '▶'
 let g:airline_right_sep = '◀'
-let g:airline_theme='badwolf'
-" let g:airline_theme='wombat'
+" let g:airline_theme='badwolf'
+let g:airline_theme='wombat'
 let g:airline_enable_branch = 1
 let g:airline_enable_syntastic = 1
 
-" ---------- ----------
+
+" --------- CSScomb -----------
+nnoremap [comb] <Nop>
+nmap <Space>css [comb]
+
+nnoremap <silent> [comb] :<C-u>CSScomb<CR>"
+"
+"
 " ---------- ----------
 " ---------- ----------
 " ---------- ----------
@@ -458,8 +463,8 @@ let g:airline_enable_syntastic = 1
 " カラースキームsolarizedを有効にする
 " colorscheme solarized
 " colorscheme molokai
-" colorscheme monokai
+colorscheme monokai
 " colorscheme jellybeans
-colorscheme iceberg
+" colorscheme iceberg
 " colorscheme railscasts
 
