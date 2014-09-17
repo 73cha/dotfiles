@@ -147,7 +147,7 @@ set background=dark " 暗い背景色に合わせた配色にする
 set hlsearch "検索結果をハイライトする
 set ruler " ルーラーを表示
 set nowrap " 行を折り返さない
-set colorcolumn=80 " 80行目に色を付ける
+" set colorcolumn=80 " 80行目に色を付ける
 set showcmd " タイプ途中のコマンドを画面最下行に表示
 set laststatus=2 "ステータスラインを常に表示する
 set cmdheight=5 " コマンドラインの高さ
@@ -209,7 +209,7 @@ NeoBundle 'tomtom/tcomment_vim' " コメントON/OFFを手軽に実行
 NeoBundle 'kana/vim-submode' " http://d.hatena.ne.jp/thinca/20130131/1359567419
 NeoBundle 'terryma/vim-multiple-cursors' " SublimeTextのcmd+dと同じ動きをする
 NeoBundle 'Yggdroot/indentLine' " コードのインデントを可視化
-NeoBundle 'jiangmiao/auto-pairs' " 記号のペアを自動挿入
+" NeoBundle 'jiangmiao/auto-pairs' " 記号のペアを自動挿入
 
 " Shell
 NeoBundle 'Shougo/vimshell' " Vimからshellを使えるようにする
@@ -221,9 +221,6 @@ NeoBundle 'Shougo/vimproc.vim', {
       \     'unix' : 'make -f make_unix.mak',
       \    },
       \ }
-
-" Yank
-NeoBundle 'vim-scripts/YankRing.vim' " Yankの履歴管理
 
 "NeoBundle 'open-browser.vim' " VimでURLやキーワードに対してブラウザで表示したり検索が出来る
 "NeoBundle 'mattn/webapi-vim' " Vim上からGETやPOSTなどのリクエストをサーバーに送ることが出来る
@@ -266,19 +263,12 @@ filetype plugin indent on
 
 
 
-" マッピングのプレフィックス {{{
+" プラグインのマッピングプレフィックス {{{
 " ---------------------------------------------------------------------------------
 " Unite.vim
 " ---------------------------------------------------------------------------------
 nnoremap [unite] <Nop>
 nmap <Space>u [unite]
-
-
-" ---------------------------------------------------------------------------------
-" YankRing.vim
-" ---------------------------------------------------------------------------------
-nnoremap [yank] <Nop>
-nmap <Space>y [yank]
 
 
 " ---------------------------------------------------------------------------------
@@ -304,6 +294,17 @@ nmap <Space>f [filer]
 
 
 
+" autocmnd {{{
+" ---------------------------------------------------------------------------------
+" augroupの設定
+" ---------------------------------------------------------------------------------
+augroup my_auto_cmd
+  autocmd!
+augroup END
+" }}}
+
+
+
 " NeoBundleプラグインの設定 {{{
 " ---------------------------------------------------------------------------------
 " Unite.vim
@@ -311,7 +312,7 @@ nmap <Space>f [filer]
 let g:unite_enable_start_insert = 1 "インサートモードで開始
 let g:unite_source_history_yank_enable = 1 "ヒストリー/ヤンク機能を有効化
 " let g:unite_source_bookmark_directory = $HOME . '/.unite/bookmark' " bookmarkだけホームディレクトリに保存
-call unite#custom_default_action('file', 'tabopen') " ファイルはタブで開くをデフォルトに
+" call unite#custom_default_action('file', 'tabopen') " ファイルはタブで開くをデフォルトに
 
 " カレントディレクトリを表示
 nnoremap <silent> [unite]s :<C-u>UniteWithBufferDir -buffer-name=files file<CR>
@@ -345,7 +346,7 @@ nnoremap <silent> [unite]a :<C-u>UniteBookmarkAdd<CR>
 nnoremap <silent> [unite]<CR> :<C-u>Unite<Space>file_rec:!<CR>
 
 " unite.vimを開いている間のキーマッピング
-augroup vimrc
+augroup unite 
   autocmd FileType unite call s:unite_my_settings()
 augroup END
 
@@ -358,18 +359,6 @@ function! s:unite_my_settings()
 
   " 入力モードのときctrl+wでバックスラッシュも削除
   imap <buffer> <C-w> <Plug>(unite_delete_backward_path)
-
-  " sでsplit
-  nnoremap <silent><buffer><expr> s unite#smart_map('s', unite#do_action('split'))
-  inoremap <silent><buffer><expr> s unite#smart_map('s', unite#do_action('split'))
-
-  " vでvsplit
-  nnoremap <silent><buffer><expr> v unite#smart_map('v', unite#do_action('vsplit'))
-  inoremap <silent><buffer><expr> v unite#smart_map('v', unite#do_action('vsplit'))
-
-  " fでvimfiler
-  nnoremap <silent><buffer><expr> f unite#smart_map('f', unite#do_action('vimfiler'))
-  inoremap <silent><buffer><expr> f unite#smart_map('f', unite#do_action('vimfiler'))
 endfunction
 
 
@@ -389,17 +378,8 @@ call submode#map('bufmove', 'n', '', '-', '<C-w>-') " s- -連打で高さを減�
 
 
 " ---------------------------------------------------------------------------------
-" YankRimg.vim
-" ---------------------------------------------------------------------------------
-nnoremap <silent> [yank] :<C-u>YRShow<CR>
-
-
-" ---------------------------------------------------------------------------------
 " vim-airline
 " ---------------------------------------------------------------------------------
-" let g:airline_enable_branch = 0
-" let g:airline#extensions#branch#enabled = 1
-" let g:airline#extensions#readonly#enabled = 1
 let g:airline#extensions#tabline#enabled = 1 " タブラインにもairlineを適用
 let g:airline#extensions#tabline#show_buffers = 0 " （タブが一個の場合）バッファのリストをタブラインに表示する機能をオフ
 let g:airline#extensions#tabline#tab_nr_type = 1 " 0でそのタブで開いてるウィンドウ数、1で左のタブから連番
@@ -409,8 +389,8 @@ let g:airline_section_c = '%t'
 let g:airline#extensions#tabline#fnamemod = ':t' " タブに表示する名前（fnamemodifyの第二引数）
 
 " airlineのカラーテーマ
-" let g:airline_theme='wombat'
 let g:airline_theme='badwolf'
+" let g:airline_theme='wombat'
 
 let g:Powerline_symbols = 'fancy' " fancyテーマに切り替え
 
@@ -431,6 +411,10 @@ let g:airline_branch_prefix = '⭠'
 " let g:airline_branch_symbol = '⭠'
 let g:airline_readonly_symbol = '⭤'
 
+" let g:airline_enable_branch = 0
+" let g:airline#extensions#branch#enabled = 1
+" let g:airline#extensions#readonly#enabled = 1
+
 
 " ---------------------------------------------------------------------------------
 " CSSComb
@@ -445,6 +429,13 @@ nnoremap <silent> [shell] :<C-u>VimShell<CR>
 
 
 " ---------------------------------------------------------------------------------
+" Emmet 
+" ---------------------------------------------------------------------------------
+let g:user_emmet_mode = 'iv' " Emmetをinsert, visualモードだけ実行
+let g:user_emmet_expandabbr_key = '<c-e>' " 展開を<CTRL>+eに
+
+
+" ---------------------------------------------------------------------------------
 " Vimfiler
 " ---------------------------------------------------------------------------------
 let g:vimfiler_safe_mode_by_default = 0 " セーフモードを無効にした状態で起動する
@@ -455,14 +446,13 @@ let g:vimfiler_readonly_file_icon = "⭤"
 let g:vimfiler_ignore_pattern = '^\%(.git\|.idea|.DS_Store\)$'
 
 " 現在開いているバッファのディレクトリをNERDTree風に開く
-" nnoremap <silent> [filer]e :<C-u>VimFilerExplorer<CR>
 nnoremap <silent> [filer]e :<C-u>VimFilerExplorer<CR>
 
 "現在開いているバッファのディレクトリを開く
-nnoremap <silent> [filer]q :<C-u>VimFIlerBufferDir -quit<CR>
+nnoremap <silent> [filer]q :<C-u>VimFilerBufferDir<CR>
 
 " vimfilerを開いている時のキーマッピング
-augroup vimrc
+augroup vimfiler
   autocmd FileType vimfiler call s:vimfiler_my_settings()
 augroup END
 
@@ -477,10 +467,10 @@ endfunction
 
 
 " カラースキームの設定 {{{
+colorscheme monokai
 " colorscheme solarized
 " colorscheme molokai
-colorscheme monokai
 " colorscheme jellybeans
 " colorscheme iceberg
 " colorscheme railscasts
-
+" }}}
