@@ -23,11 +23,14 @@ SAVEHIST=1000000
 # 1行表示
 # PROMPT="%~ %# "
 # 2行表示
-#PROMPT="%{${fg[red]}%}[%n@%m]%{${reset_color}%} %~
-PROMPT="%{${fg[green]}%}[%n@localhost]%{${reset_color}%} $([ -n "$TMUX" ] && tmux setenv TMUXPWD_$(tmux display -p "#D" | tr -d %) "$PWD") %~
+# PROMPT="%{${fg[red]}%}[%n@%m]%{${reset_color}%} %~
+PROMPT="%{${fg[green]}%}[%n@localhost]%{${reset_color}%} %~
 %# " 
 
-PROMPT="$PROMPT"''
+
+# PROMPT="%{${fg[green]}%}[%n@localhost]%{${reset_color}%} $([ -n "$TMUX" ] && tmux setenv TMUXPWD_$(tmux display -p "#D" | tr -d %) "$PWD") %~
+# %# " 
+
 
 # 単語の区切り文字を指定する
 autoload -Uz select-word-style
@@ -277,10 +280,6 @@ eval $(gdircolors ~/terminal_color/dircolors-solarized/dircolors.ansi-universal)
 if [ -f ~/.zsh/functions/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]; then
   source ~/.zsh/functions/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 fi
-
-
-
-
 
 
 ################################################
