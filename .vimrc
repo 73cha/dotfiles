@@ -81,7 +81,7 @@ nnoremap s <Nop>
 
 " 垂直分割
 nnoremap sv :<C-u>vs<CR>
-" nnoremap ss :<C-u>sp<CR>
+nnoremap ss :<C-u>sp<CR>
 
 " ウィンドウを下に移動
 nnoremap sj <C-w>j
@@ -386,6 +386,7 @@ let g:airline#extensions#tabline#tab_nr_type = 1 " 0でそのタブで開いて�
 
 let g:airline_section_b = '%{getcwd()}'
 let g:airline_section_c = '%t'
+
 let g:airline#extensions#tabline#fnamemod = ':t' " タブに表示する名前（fnamemodifyの第二引数）
 
 " airlineのカラーテーマ
@@ -408,12 +409,8 @@ let g:airline#extensions#tabline#left_alt_sep = '⮀'
 " ステータスラインのbranchなどの絵文字を指定｀
 let g:airline_linecolumn_prefix = '⭡'
 let g:airline_branch_prefix = '⭠'
-" let g:airline_branch_symbol = '⭠'
 let g:airline_readonly_symbol = '⭤'
 
-" let g:airline_enable_branch = 0
-" let g:airline#extensions#branch#enabled = 1
-" let g:airline#extensions#readonly#enabled = 1
 
 
 " ---------------------------------------------------------------------------------
