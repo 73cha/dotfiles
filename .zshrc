@@ -176,7 +176,7 @@ source ~/.local/bin/bashmarks.sh
 
 
 ################################################
-# iTemr 
+# iTerm 
 ################################################
 # iTerm2のタブ名を変更する
 function title {
@@ -209,8 +209,6 @@ alias mv="mv -i"
 alias ls="gls --color=auto"
 
 
-
-
 ## bundler ##
 alias be="bundle exec"
 alias bi="bundle install --path vendor/bundle"
@@ -238,7 +236,7 @@ alias rg2_1="rbenv global 2.1.0"
 
 ## mysql ##
 alias msstp="mysql.server stop"
-alias msstt="mysql.server strat"
+alias msstt="mysql.server start"
 
 
 ## appache ##
@@ -261,7 +259,7 @@ alias gp="git push"
 alias gs="git status"
 alias gl="git log --pretty=format:'[%ad] %h %an : %s'"
 alias grf="git reflog"
-alias gmv="git miv"
+alias gmv="git mv"
 alias grmc="git rm chached"
 alias gco="git checkout"
 alias gcob="git checkout -b"
@@ -269,6 +267,10 @@ alias gcob="git checkout -b"
 
 #############################################
 # ls color setting
+#
+# lsコマンドの結果を色付けする
+# $HOMEディレクトリにあるterminal_color/dircolorsに
+# 色付け用のカラースキームがある
 #############################################
 eval $(gdircolors ~/terminal_color/dircolors-solarized/dircolors.ansi-universal)
 
@@ -280,6 +282,7 @@ eval $(gdircolors ~/terminal_color/dircolors-solarized/dircolors.ansi-universal)
 if [ -f ~/.zsh/functions/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]; then
   source ~/.zsh/functions/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 fi
+
 
 
 ################################################
