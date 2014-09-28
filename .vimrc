@@ -213,6 +213,8 @@ NeoBundle 'Yggdroot/indentLine' " コードのインデントを可視化
 
 " Shell
 NeoBundle 'Shougo/vimshell' " Vimからshellを使えるようにする
+
+" Asynchronous
 NeoBundle 'Shougo/vimproc.vim', {
       \ 'build' : {
       \     'windows' : 'tools\\update-dll-mingw',
@@ -221,6 +223,7 @@ NeoBundle 'Shougo/vimproc.vim', {
       \     'unix' : 'make -f make_unix.mak',
       \    },
       \ }
+NeoBundle 'tpope/vim-dispatch'
 
 "NeoBundle 'open-browser.vim' " VimでURLやキーワードに対してブラウザで表示したり検索が出来る
 "NeoBundle 'mattn/webapi-vim' " Vim上からGETやPOSTなどのリクエストをサーバーに送ることが出来る
@@ -241,6 +244,9 @@ NeoBundle 'Shougo/unite.vim' " ファイル検索を便利に
 NeoBundle 'Shougo/neomru.vim' " Unite.vimでfile_mruするのに必要 http://jsapachehtml.hatenablog.com/entry/2014/03/14/135458
 NeoBundle 'Shougo/vimfiler'
 
+" Rspec
+NeoBundle 'thoughtbot/vim-rspec'
+
 " Statusline
 NeoBundle 'bling/vim-airline' " ステータスラインをかっこ良く
 
@@ -260,7 +266,6 @@ NeoBundleCheck " インストールチェック
 " プラグインの設定を反映させるために、ファイルタイプを一旦offにして、プラグインのロード後にonにする。
 filetype plugin indent on
 " }}}
-
 
 
 " プラグインのマッピングプレフィックス {{{
@@ -423,6 +428,20 @@ nnoremap <silent> [comb] :<C-u>CSScomb<CR>
 " VimShell
 " ---------------------------------------------------------------------------------
 nnoremap <silent> [shell] :<C-u>VimShell<CR>
+
+
+" ---------------------------------------------------------------------------------
+" Dispach
+" ---------------------------------------------------------------------------------
+let g:rspec_command = "Dispatch bundle exec spring rspec {spec}"
+
+" ---------------------------------------------------------------------------------
+" VimRspec
+" ---------------------------------------------------------------------------------
+nmap <silent><leader>c :call RunCurrentSpecFile()<CR>
+nmap <silent><leader>n :call RunNearestSpec()<CR>
+nmap <silent><leader>l :call RunLastSpec()<CR>
+nmap <silent><leader>a :call RunAllSpecs()<CR>
 
 
 " ---------------------------------------------------------------------------------

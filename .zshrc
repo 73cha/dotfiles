@@ -285,29 +285,6 @@ fi
 
 
 
-################################################
-# Rails project ENV
-################################################
-
-## test ##
-export K_DB_TEST="katsuhisa_me_test"
-export K_DB_TEST_USER="nami_test"
-export K_DB_TEST_PASSWORD="Uj2du0App9ek4wY2"
-
-
-## development ##
-export K_DB_DEVELOPMENT="katsuhisa_me_development"
-export K_DB_DEVELOPMENT_USER="nami_development"
-export K_DB_DEVELOPMENT_PASSWORD="eUd8aN6Hoj9tHuv3"
-
-
-## production ##
-export K_DB_PRODUCTION="katsuhisa_me_production"
-export K_DB_PRODUCTION_USER="nami_production"
-export K_DB_PRODUCTION_PASSWORD="Ij1dY7wYft1Ib3tI"
-
-
-
 # node_modules path 2014/04/02
 #export NODE_PATH="/usr/local/lib/node_modules"
 
