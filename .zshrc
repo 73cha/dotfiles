@@ -271,6 +271,7 @@ alias gcob="git checkout -b"
 # lsコマンドの結果を色付けする
 # $HOMEディレクトリにあるterminal_color/dircolorsに
 # 色付け用のカラースキームがある
+# http://qiita.com/Humangas/items/848f0318dfc3c6f5b8e2
 #############################################
 eval $(gdircolors ~/terminal_color/dircolors-solarized/dircolors.ansi-universal)
 
@@ -278,6 +279,7 @@ eval $(gdircolors ~/terminal_color/dircolors-solarized/dircolors.ansi-universal)
 
 #############################################
 # zsh-syntax-highlight
+# http://blog.glidenote.com/blog/2012/12/15/zsh-syntax-highlighting/
 #############################################
 if [ -f ~/.zsh/functions/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]; then
   source ~/.zsh/functions/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
