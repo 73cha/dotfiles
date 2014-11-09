@@ -57,10 +57,10 @@ set browsedir=buffer " ファイル保存時の場所を、開いているファ
 inoremap <silent> jj <ESC>
 
 " ウィンドウの移動
-inoremap <C-h> <Left>
-inoremap <C-j> <Down>
-inoremap <C-k> <Up>
-inoremap <C-l> <Right>
+" inoremap <C-h> <Left>
+" inoremap <C-j> <Down>
+" inoremap <C-k> <Up>
+" inoremap <C-l> <Right>
 
 
 " カーソル位置の単語を検索
@@ -95,6 +95,23 @@ nnoremap sl <C-w>l
 " ウィンドウを左に移動
 nnoremap sh <C-w>h
 
+" 分割したウィンドウを下に移動
+nnoremap sJ <C-w>J
+
+" 分割したウィンドウを上に移動
+nnoremap sK <C-w>K
+
+" 分割したウィンドウを右に移動
+nnoremap sL <C-w>L
+
+" 分割したウィンドウを左に移動
+nnoremap sH <C-w>h
+
+" 分割したウィンドウそのものを回転させる
+nnoremap sr <C-w>r
+
+" 分割したウィンドウを同じ大きさにする
+nnoremap s= <C-w>=
 
 " タブを新しく作る
 nnoremap st :<C-u>tabnew<CR>
@@ -238,6 +255,7 @@ NeoBundle 'kchmck/vim-coffee-script' " Coffeescriptのシンタックス
 NeoBundle 'tpope/vim-haml' " Hamlのシンタックス
 NeoBundle 'vim-ruby/vim-ruby' " Rubyのシンタックス
 NeoBundle 'vim-scripts/AnsiEsc.vim' " ログファイルを色づけしてくれる
+NeoBundle "slim-template/vim-slim" " Slimのシンタックス
 
 " Failler
 NeoBundle 'Shougo/unite.vim' " ファイル検索を便利に
@@ -256,6 +274,9 @@ NeoBundle 'tomasr/molokai'
 NeoBundle 'jpo/vim-railscasts-theme'
 NeoBundle 'cocopon/iceberg.vim'
 NeoBundle 'nanotech/jellybeans.vim'
+
+" Vimjazz
+NeoBundleLazy 'supermomonga/jazzradio.vim', { 'depends' : [ 'Shougo/unite.vim' ] }
 
 NeoBundleCheck " インストールチェック
 
@@ -478,6 +499,47 @@ function! s:vimfiler_my_settings()
   " Qで隠す（バッファに残る）
   nmap <buffer> Q <Plug>(vimfiler_hide)
 endfunction
+
+
+" ---------------------------------------------------------------------------------
+" Jazzradio.vim 
+" ---------------------------------------------------------------------------------
+if neobundle#tap('jazzradio.vim')
+    call neobundle#config({
+    \   'autoload' : {
+    \     'unite_sources' : [
+    \       'jazzradio'
+    \     ],
+    \     'commands' : [
+    \       'JazzradioUpdateChannels',
+    \       'JazzradioStop',
+    \       {
+    \         'name' : 'JazzradioPlay',
+    \         'complete' : 'customlist,jazzradio#channel_id_complete'
+    \       }
+    \     ],
+    \     'function_prefix' : 'jazzradio'
+    \   }
+    \ })
+endif
+
+
+" ---------------------------------------------------------------------------------
+" Vimgrepで検索結果をQuickFixで開く設定Vimgrepで検索結果をQuickFixで開く設定
+" ---------------------------------------------------------------------------------
+autocmd QuickFixCmdPost *grep* cwindow " Vimgrepで検索結果をQuickFixで開く設定Vimgrepで検索結果をQuickFixで開く設定
+
+" 検索結果を前へ
+nnoremap [q :cprevious<CR>
+
+" 検索結果を次へ
+nnoremap ]q :cnext<CR>
+
+" 検索結果を最初へ
+nnoremap [Q :<C-u>cfirst<CR>
+
+" 検索結果を最後へ
+nnoremap ]Q :<C-u>clast<CR>
 " }}}
 
 
