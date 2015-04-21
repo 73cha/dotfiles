@@ -249,7 +249,7 @@ alias rm_rp="~/shell_scripts/rm_build_project_files.sh"
 alias init_rp="~/shell_scripts/init_project.sh"
 alias bk_kbt="~/shell_scripts/bk_kobito.sh"
 alias bk_bkmk="~/shell_scripts/bk_bookmark.sh"
-alias surl="~/project/api/google_api/url_shortener.sh"
+alias surl="~/project/api/google_api/sh/url_shortener.sh"
 
 ## git ##
 alias ga="git add"

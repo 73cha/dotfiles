@@ -1,4 +1,4 @@
-" Vimの環境設定 {{{
+" Vimの環境設定
 " ---------------------------------------------------------------------------------
 " 基本設定
 " ---------------------------------------------------------------------------------
@@ -46,21 +46,21 @@ set browsedir=buffer " ファイル保存時の場所を、開いているファ
 " キーマッピング
 " ---------------------------------------------------------------------------------
 " 閉じ補完
-"inoremap { {}<LEFT>
-"inoremap [ []<LEFT>
-"inoremap ( ()<LEFT>
-"inoremap ' ''<LEFT>
-"inoremap < <> <LEFT>
-" inoremap () () <LEFT>
+inoremap { {}<LEFT>
+inoremap [ []<LEFT>
+inoremap ( ()<LEFT>
+inoremap ' ''<LEFT>
+" inoremap < <> <LEFT>
+inoremap () () <LEFT>
 
 " 挿入モードでjjでモード終了
 inoremap <silent> jj <ESC>
 
-" ウィンドウの移動
-" inoremap <C-h> <Left>
-" inoremap <C-j> <Down>
-" inoremap <C-k> <Up>
-" inoremap <C-l> <Right>
+" 挿入モードでのカーソル移動
+inoremap <C-h> <Left>
+inoremap <C-j> <Down>
+inoremap <C-k> <Up>
+inoremap <C-l> <Right>
 
 
 " カーソル位置の単語を検索
@@ -186,11 +186,11 @@ augroup ZenkakuSpace
 augroup END
 call ZenkakuSpace()
 endif
-" }}}
+ 
 
 
 
-"  NeoBundleの設定 {{{
+"  NeoBundleの設定 
 " ---------------------------------------------------------------------------------
 " ランタイムパスの設定
 " ---------------------------------------------------------------------------------
@@ -262,9 +262,6 @@ NeoBundle 'Shougo/unite.vim' " ファイル検索を便利に
 NeoBundle 'Shougo/neomru.vim' " Unite.vimでfile_mruするのに必要 http://jsapachehtml.hatenablog.com/entry/2014/03/14/135458
 NeoBundle 'Shougo/vimfiler'
 
-" Rspec
-NeoBundle 'thoughtbot/vim-rspec'
-
 " Statusline
 NeoBundle 'bling/vim-airline' " ステータスラインをかっこ良く
 
@@ -278,7 +275,14 @@ NeoBundle 'nanotech/jellybeans.vim'
 " Vimjazz
 NeoBundleLazy 'supermomonga/jazzradio.vim', { 'depends' : [ 'Shougo/unite.vim' ] }
 
+" EasyMotion
+NeoBundle 'Lokaltog/vim-easymotion'
+
+" Easyaliign
+NeoBundle 'junegunn/vim-easy-align'
+
 NeoBundleCheck " インストールチェック
+
 
 
 " ---------------------------------------------------------------------------------
@@ -286,10 +290,10 @@ NeoBundleCheck " インストールチェック
 " ---------------------------------------------------------------------------------
 " プラグインの設定を反映させるために、ファイルタイプを一旦offにして、プラグインのロード後にonにする。
 filetype plugin indent on
-" }}}
+ 
 
 
-" プラグインのマッピングプレフィックス {{{
+" プラグインのマッピングプレフィックス 
 " ---------------------------------------------------------------------------------
 " Unite.vim
 " ---------------------------------------------------------------------------------
@@ -316,22 +320,10 @@ nmap <Space>s [shell]
 " ---------------------------------------------------------------------------------
 nnoremap [filer] <Nop>
 nmap <Space>f [filer]
-" }}}
 
 
 
-" autocmnd {{{
-" ---------------------------------------------------------------------------------
-" augroupの設定
-" ---------------------------------------------------------------------------------
-augroup my_auto_cmd
-  autocmd!
-augroup END
-" }}}
-
-
-
-" NeoBundleプラグインの設定 {{{
+" NeoBundleプラグインの設定 
 " ---------------------------------------------------------------------------------
 " Unite.vim
 " ---------------------------------------------------------------------------------
@@ -438,7 +430,6 @@ let g:airline_branch_prefix = '⭠'
 let g:airline_readonly_symbol = '⭤'
 
 
-
 " ---------------------------------------------------------------------------------
 " CSSComb
 " ---------------------------------------------------------------------------------
@@ -449,20 +440,6 @@ nnoremap <silent> [comb] :<C-u>CSScomb<CR>
 " VimShell
 " ---------------------------------------------------------------------------------
 nnoremap <silent> [shell] :<C-u>VimShell<CR>
-
-
-" ---------------------------------------------------------------------------------
-" Dispach
-" ---------------------------------------------------------------------------------
-let g:rspec_command = "Dispatch bundle exec spring rspec {spec}"
-
-" ---------------------------------------------------------------------------------
-" VimRspec
-" ---------------------------------------------------------------------------------
-nmap <silent><leader>c :call RunCurrentSpecFile()<CR>
-nmap <silent><leader>n :call RunNearestSpec()<CR>
-nmap <silent><leader>l :call RunLastSpec()<CR>
-nmap <silent><leader>a :call RunAllSpecs()<CR>
 
 
 " ---------------------------------------------------------------------------------
@@ -540,15 +517,38 @@ nnoremap [Q :<C-u>cfirst<CR>
 
 " 検索結果を最後へ
 nnoremap ]Q :<C-u>clast<CR>
-" }}}
 
 
+" ---------------------------------------------------------------------------------
+" EasyMotion
+" ---------------------------------------------------------------------------------
+" 最初にマッチした箇所へスペースかエンターで飛ぶ
+let g:EasyMotion_enter_jump_first = 1
+let g:EasyMotion_space_jump_first = 1
 
-" カラースキームの設定 {{{
+" s{char} で画面内検索
+nmap s <Plug>(easymotion-s2)
+
+" <Tab>で次の候補、<S-Tab>で前の候補へジャンプ
+nmap g/ <Plug>(easymotion-sn)
+xmap g/ <Plug>(easymotion-sn)
+omap g/ <Plug>(easymotion-tn)
+
+
+" ---------------------------------------------------------------------------------
+" Easyalign
+" ---------------------------------------------------------------------------------
+" Start interactive EasyAlign in visual mode (e.g. vip<Enter>)
+vmap <Enter> <Plug>(EasyAlign)
+" Start interactive EasyAlign for a motion/text object (e.g. gaip)
+nmap ga <Plug>(EasyAlign)
+
+
+" カラースキームの設定 
 colorscheme monokai
 " colorscheme solarized
 " colorscheme molokai
 " colorscheme jellybeans
 " colorscheme iceberg
 " colorscheme railscasts
-" }}}
+
