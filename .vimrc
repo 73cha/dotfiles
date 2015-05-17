@@ -46,12 +46,12 @@ set browsedir=buffer " ファイル保存時の場所を、開いているファ
 " キーマッピング
 " ---------------------------------------------------------------------------------
 " 閉じ補完
-inoremap { {}<LEFT>
-inoremap [ []<LEFT>
-inoremap ( ()<LEFT>
-inoremap ' ''<LEFT>
+" inoremap { {}<LEFT>
+" inoremap [ []<LEFT>
+" inoremap ( ()<LEFT>
+" inoremap ' ''<LEFT>
 " inoremap < <> <LEFT>
-inoremap () () <LEFT>
+" inoremap () () <LEFT>
 
 " 挿入モードでjjでモード終了
 inoremap <silent> jj <ESC>
@@ -280,6 +280,9 @@ NeoBundle 'Lokaltog/vim-easymotion'
 
 " Easyaliign
 NeoBundle 'junegunn/vim-easy-align'
+
+" AutoFileName
+NeoBundle 'BoundInCode/AutoFileName'
 
 NeoBundleCheck " インストールチェック
 
@@ -529,6 +532,12 @@ let g:EasyMotion_space_jump_first = 1
 " s{char} で画面内検索
 nmap s <Plug>(easymotion-s2)
 
+" f, t, F, TをEasyMotionにマッピング
+map f <Plug>(easymotion-fl)
+map t <Plug>(easymotion-tl)
+map F <Plug>(easymotion-Fl)
+map T <Plug>(easymotion-Tl)
+
 " <Tab>で次の候補、<S-Tab>で前の候補へジャンプ
 nmap g/ <Plug>(easymotion-sn)
 xmap g/ <Plug>(easymotion-sn)
@@ -544,7 +553,30 @@ vmap <Enter> <Plug>(EasyAlign)
 nmap ga <Plug>(EasyAlign)
 
 
+" ---------------------------------------------------------------------------------
+" Surround
+" ---------------------------------------------------------------------------------
+function! s:define_surround_mapping(key, mapping)
+  let var_name = 'surround_'.char2nr(a:key)
+  execute 'let b:' . var_name . ' = "' . a:mapping . '"'
+endfunction
+
+let dict = {
+          \ '(' : "(\r)",
+          \ '[' : "[\r]",
+          \ '<' : "<\r>",
+          \ '{' : "{ \r }",
+          \ '#':  "#{\r}",
+          \ }
+
+for [key, mapping] in items(dict)
+  call s:define_surround_mapping(key, mapping)
+endfor
+
+
+" ---------------------------------------------------------------------------------
 " カラースキームの設定 
+" ---------------------------------------------------------------------------------
 colorscheme monokai
 " colorscheme solarized
 " colorscheme molokai
