@@ -190,9 +190,6 @@ function title {
 ################################################
 
 ## rm ##
-# bashmarksがブックマークを消すときにrmを使っていて
-# aliasで上書きしたrmtrashの存在しないオプション付きで
-# 実行されて警告がでてしまうのでrmのaliasは戻した
 alias rm="rm -i"
 
 # ファイルをゴミ箱に置きたい時使う
@@ -219,19 +216,12 @@ alias sz="source ~/.zshrc"
 #alias sz="exec $SHELL"
 
 
-## vim .zshrc ##
-alias vz="vim ~/.zshrc"
-
-
 ## rbenv ##
 alias re="rbenv exec"
 alias rv="rbenv version"
 alias rvs="rbenv versions"
 alias regi="rbenv exec gem install"
 alias regl="rbenv exec gem list"
-alias rg1="rbenv global 1.9.3-p484"
-alias rg2="rbenv global 2.0.0-p353"
-alias rg2_1="rbenv global 2.1.0"
 
 
 ## mysql ##
@@ -245,11 +235,10 @@ alias apstp="apachectl stop"
 
 
 ## shell script ##
-alias rm_rp="~/shell_scripts/rm_build_project_files.sh"
-alias init_rp="~/shell_scripts/init_project.sh"
 alias bk_kbt="~/shell_scripts/bk_kobito.sh"
 alias bk_bkmk="~/shell_scripts/bk_bookmark.sh"
 alias surl="~/project/api/google_api/sh/url_shortener.sh"
+
 
 ## git ##
 alias ga="git add"
@@ -263,6 +252,29 @@ alias gmv="git mv"
 alias grmc="git rm chached"
 alias gco="git checkout"
 alias gcob="git checkout -b"
+
+
+#############################################
+# Macで少し生産性の上がるBashエイリアス集
+# http://www.rickynews.com/blog/2014/07/19/useful-bash-aliases/ ##
+#############################################
+alias up="cd ..; ls -l"
+alias f="open ."
+
+cdf () {
+  target=`osascript -e 'tell application "Finder" to if (count of Finder windows) > 0 then get POSIX path of (target of front Finder window as text)'`
+  if [ "$target" != "" ]
+  then
+    cd "$target"
+    pwd
+  else
+    echo 'No Finder window found' >&2
+  fi
+}
+
+dic () {
+  w3m "http://ejje.weblio.jp/content/$1" | grep "用例"
+}
 
 
 #############################################

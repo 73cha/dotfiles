@@ -448,7 +448,7 @@ nnoremap <silent> [shell] :<C-u>VimShell<CR>
 " ---------------------------------------------------------------------------------
 " Emmet 
 " ---------------------------------------------------------------------------------
-let g:user_emmet_mode = 'iv' " Emmetをinsert, visualモードだけ実行
+" let g:user_emmet_mode = 'iv' " Emmetをinsert, visualモードだけ実行
 let g:user_emmet_expandabbr_key = '<c-e>' " 展開を<CTRL>+eに
 
 
