@@ -304,3 +304,6 @@ fi
 
 # node 2014/01/01
 #export PATH="/usr/local/share/npm/bin:$PAT
+
+### Added by the Heroku Toolbelt
+export PATH="/usr/local/heroku/bin:$PATH"
