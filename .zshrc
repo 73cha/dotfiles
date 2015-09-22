@@ -299,11 +299,22 @@ fi
 
 
 
+#############################################
+# Added by the Heroku Toolbelt
+#############################################
+export PATH="/usr/local/heroku/bin:$PATH"
+
+
+
+#############################################
+# direnv
+#############################################
+eval "$(direnv hook zsh)"
+
+
+
 # node_modules path 2014/04/02
 #export NODE_PATH="/usr/local/lib/node_modules"
 
 # node 2014/01/01
 #export PATH="/usr/local/share/npm/bin:$PAT
-
-### Added by the Heroku Toolbelt
-export PATH="/usr/local/heroku/bin:$PATH"
