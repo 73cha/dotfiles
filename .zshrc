@@ -24,7 +24,7 @@ SAVEHIST=1000000
 # PROMPT="%~ %# "
 # 2行表示
 # PROMPT="%{${fg[red]}%}[%n@%m]%{${reset_color}%} %~
-PROMPT="%{${fg[green]}%}[%n@localhost]%{${reset_color}%} %~
+PROMPT="%{${fg[green]}%}[%n@local]%{${reset_color}%} %~
 %# " 
 
 
@@ -252,6 +252,10 @@ alias gmv="git mv"
 alias grmc="git rm chached"
 alias gco="git checkout"
 alias gcob="git checkout -b"
+
+
+## direnv ##
+alias dr="direnv reload"
 
 
 #############################################

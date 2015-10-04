@@ -211,7 +211,8 @@ filetype off " ファイル形式の検出を無効化
 " ---------------------------------------------------------------------------------
 " プラグイン管理
 " ---------------------------------------------------------------------------------
-call neobundle#rc(expand('~/.vim/bundle/')) " プラグインインストールディレクトリを指定
+call neobundle#begin(expand('~/.vim/bundle/')) " プラグインインストールディレクトリを指定
+NeoBundleFetch 'Shougo/neobundle.vim'
 
 " NeoBundle
 NeoBundleFetch 'Shougo/neobundle.vim'
@@ -286,6 +287,8 @@ NeoBundle 'junegunn/vim-easy-align'
 
 " AutoFileName
 NeoBundle 'BoundInCode/AutoFileName'
+
+call neobundle#end()
 
 NeoBundleCheck " インストールチェック
 
@@ -432,7 +435,7 @@ let g:airline#extensions#tabline#left_alt_sep = '⮀'
 
 " ステータスラインのbranchなどの絵文字を指定｀
 let g:airline_linecolumn_prefix = '⭡'
-let g:airline_branch_prefix = '⭠'
+let g:airline_symbols.branch = '⭠'
 let g:airline_readonly_symbol = '⭤'
 
 
