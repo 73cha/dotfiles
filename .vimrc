@@ -218,14 +218,18 @@ NeoBundleFetch 'Shougo/neobundle.vim'
 NeoBundleFetch 'Shougo/neobundle.vim'
 
 " HTML/CSS
-NeoBundle 'mattn/emmet-vim' " HTML/CSSコーディングを簡単に
-NeoBundle 'https://github.com/miripiruni/CSScomb-for-Vim.git' " CSSプロパティの整列
+NeoBundleLazy 'mattn/emmet-vim', {
+\   'autoload': { 'commands': ['Emmet'] }
+\ }
 
 " Utillity
 NeoBundle 'tpope/vim-surround' " テキストオブジェクトの拡張
-" NeoBundle 'bronson/vim-trailing-whitespace' " 行末の半角スペースを可視化
-"
-NeoBundle 'tpope/vim-endwise' " Ruby向けにendを自動挿入してくれる
+
+" Ruby向けにendを自動挿入してくれる
+NeoBundleLazy 'tpope/vim-endwise', {
+\   'autoload' : { 'insert' : 1 }
+\ } 
+
 NeoBundle 'tomtom/tcomment_vim' " コメントON/OFFを手軽に実行
 NeoBundle 'kana/vim-submode' " http://d.hatena.ne.jp/thinca/20130131/1359567419
 NeoBundle 'terryma/vim-multiple-cursors' " SublimeTextのcmd+dと同じ動きをする
@@ -233,38 +237,79 @@ NeoBundle 'Yggdroot/indentLine' " コードのインデントを可視化
 " NeoBundle 'jiangmiao/auto-pairs' " 記号のペアを自動挿入
 
 " Shell
-NeoBundle 'Shougo/vimshell' " Vimからshellを使えるようにする
+" Vimからshellを使えるようにする
+NeoBundleLazy 'Shougo/vimshell', {
+\   'autoload' : { 'commands' : [ 'VimShell' ] },
+\   'depends': [ 'Shougo/vimproc' ],
+\ }
 
 " Asynchronous
 NeoBundle 'Shougo/vimproc.vim', {
-      \ 'build' : {
-      \     'windows' : 'tools\\update-dll-mingw',
-      \     'cygwin' : 'make -f make_cygwin.mak',
-      \     'mac' : 'make -f make_mac.mak',
-      \     'unix' : 'make -f make_unix.mak',
-      \    },
-      \ }
-NeoBundle 'tpope/vim-dispatch'
-
-"NeoBundle 'open-browser.vim' " VimでURLやキーワードに対してブラウザで表示したり検索が出来る
-"NeoBundle 'mattn/webapi-vim' " Vim上からGETやPOSTなどのリクエストをサーバーに送ることが出来る
-"NeoBundle 'tell-k/vim-browsereload-mac' " Vimで保存したらブラウザを更新
+\   'build' : {
+\       'windows' : 'tools\\update-dll-mingw',
+\       'cygwin' : 'make -f make_cygwin.mak',
+\       'mac' : 'make -f make_mac.mak',
+\       'unix' : 'make -f make_unix.mak',
+\    },
+\ }
 
 " Syntax
-NeoBundle 'hail2u/vim-css3-syntax' " CSS3のシンタックス
-NeoBundle 'cakebaker/scss-syntax.vim' " Sassシンタックス
-NeoBundle 'othree/html5.vim' " HTML5のシンタックス
-NeoBundle 'pangloss/vim-javascript' " Javascriptのシンタックス
-NeoBundle 'kchmck/vim-coffee-script' " Coffeescriptのシンタックス
-NeoBundle 'tpope/vim-haml' " Hamlのシンタックス
-NeoBundle 'vim-ruby/vim-ruby' " Rubyのシンタックス
-NeoBundle 'vim-scripts/AnsiEsc.vim' " ログファイルを色づけしてくれる
-NeoBundle "slim-template/vim-slim" " Slimのシンタックス
+" CSS3のシンタックス
+NeoBundleLazy 'hail2u/vim-css3-syntax', {
+\   'autoload': { 'filetypes': ['css', 'scss', 'sass'] }
+\ }
+
+" Sassシンタックス
+NeoBundleLazy 'cakebaker/scss-syntax.vim', {
+\   'autoload': { 'filetypes': ['scss', 'sass'] }
+\ }
+
+" HTML5のシンタックス
+NeoBundleLazy 'othree/html5.vim', {
+\   'autoload': { 'filetypes': ['html5'] }
+\ }
+
+" Javascriptのシンタックス
+NeoBundleLazy 'pangloss/vim-javascript', {
+\   'autoload': { 'filetypes': ['js'] }
+\ }
+
+" Coffeescriptのシンタックス
+NeoBundleLazy 'kchmck/vim-coffee-script', {
+\   'autoload': { 'filetypes': ['coffee'] }
+\ }
+
+" Rubyのシンタックス
+NeoBundleLazy 'vim-ruby/vim-ruby', {
+\   'autoload': { 'filetypes': ['rb'] }
+\ }
+
+" ログファイルを色づけしてくれる
+NeoBundleLazy 'vim-scripts/AnsiEsc.vim', {
+\   'autoload': { 'commands': ['AnsiEsc'] }
+\ }
+
+" Slimのシンタックス
+NeoBundleLazy "slim-template/vim-slim", {
+\   'autoload': { 'filetypes': ['slim'] }
+\ }
 
 " Failler
-NeoBundle 'Shougo/unite.vim' " ファイル検索を便利に
-NeoBundle 'Shougo/neomru.vim' " Unite.vimでfile_mruするのに必要 http://jsapachehtml.hatenablog.com/entry/2014/03/14/135458
-NeoBundle 'Shougo/vimfiler'
+" ファイル検索を便利に
+NeoBundleLazy 'Shougo/unite.vim' , {
+\   'autoload' : { 'commands' : ['Unite'] }
+\ }
+
+NeoBundleLazy 'Shougo/vimfiler', {
+\ 'depends' : ['Shougo/unite.vim'],
+\ 'autoload' : {
+\   'commands' : ['VimFilerTab', 'VimFiler', 'VimFilerExplorer', 'VimFilerBufferDir'],
+\   'explorer' : 1,
+\ }}
+
+" Unite.vimでfile_mruするのに必要
+" http://jsapachehtml.hatenablog.com/entry/2014/03/14/135458
+NeoBundle 'Shougo/neomru.vim'
 
 " Statusline
 NeoBundle 'bling/vim-airline' " ステータスラインをかっこ良く
@@ -277,16 +322,32 @@ NeoBundle 'cocopon/iceberg.vim'
 NeoBundle 'nanotech/jellybeans.vim'
 
 " Vimjazz
-NeoBundleLazy 'supermomonga/jazzradio.vim', { 'depends' : [ 'Shougo/unite.vim' ] }
+NeoBundleLazy 'supermomonga/jazzradio.vim', {
+\   'depends' : ['Shougo/unite.vim']
+\ }
 
 " EasyMotion
 NeoBundle 'Lokaltog/vim-easymotion'
 
 " Easyaliign
-NeoBundle 'junegunn/vim-easy-align'
+NeoBundleLazy 'junegunn/vim-easy-align', {
+\   'autoload': {
+\     'commands' : ['EasyAlign'],
+\   }
+\ }
 
-" AutoFileName
-NeoBundle 'BoundInCode/AutoFileName'
+" CSScomb
+NeoBundleLazy 'csscomb/vim-csscomb', {
+\   'autoload': { 'commands': ['CSSComb'] }
+\ }
+
+" neocomplete
+if has('lua')
+  NeoBundleLazy 'Shougo/neocomplete.vim', {
+  \   'depends' : 'Shougo/vimproc',
+  \   'autoload' : { 'insert' : 1,}
+  \ }
+endif
 
 call neobundle#end()
 
@@ -330,6 +391,12 @@ nmap <Space>s [shell]
 nnoremap [filer] <Nop>
 nmap <Space>f [filer]
 
+
+" ---------------------------------------------------------------------------------
+" AnsiEsc
+" ---------------------------------------------------------------------------------
+nnoremap [ansiesc] <Nop>
+nmap <Space>n [ansiesc]
 
 
 " NeoBundleプラグインの設定 
@@ -434,9 +501,10 @@ let g:airline#extensions#tabline#left_sep = '⮀'
 let g:airline#extensions#tabline#left_alt_sep = '⮀'
 
 " ステータスラインのbranchなどの絵文字を指定｀
-let g:airline_linecolumn_prefix = '⭡'
-let g:airline_symbols.branch = '⭠'
-let g:airline_readonly_symbol = '⭤'
+" let g:airline_symbols.linenr = '⭡'
+" let g:airline#extensions#branch#enabled = '⭠'
+" let g:airline_symbols.readonly = '⭤'
+
 
 
 " ---------------------------------------------------------------------------------
@@ -459,8 +527,15 @@ let g:user_emmet_expandabbr_key = '<c-e>' " 展開を<CTRL>+eに
 
 
 " ---------------------------------------------------------------------------------
+" AnsiEsc
+" ---------------------------------------------------------------------------------
+nnoremap <silent> [ansiesc] :<C-u>AnsiEsc<CR>
+
+
+" ---------------------------------------------------------------------------------
 " Vimfiler
 " ---------------------------------------------------------------------------------
+
 let g:vimfiler_safe_mode_by_default = 0 " セーフモードを無効にした状態で起動する
 let g:vimfiler_as_default_explorer = 1 " vimデフォルトのエクスプローラをvimfilerで置き換える
 let g:vimfiler_tree_opened_icon = "▼"
@@ -474,17 +549,17 @@ nnoremap <silent> [filer]e :<C-u>VimFilerExplorer<CR>
 "現在開いているバッファのディレクトリを開く
 nnoremap <silent> [filer]q :<C-u>VimFilerBufferDir<CR>
 
-" vimfilerを開いている時のキーマッピング
-augroup vimfiler
-  autocmd FileType vimfiler call s:vimfiler_my_settings()
-augroup END
-
-function! s:vimfiler_my_settings()
-  " qで終了（バッファに残らない）
-  nmap <buffer> q <Plug>(vimfiler_exit)
-  " Qで隠す（バッファに残る）
-  nmap <buffer> Q <Plug>(vimfiler_hide)
-endfunction
+" " vimfilerを開いている時のキーマッピング
+" augroup vimfiler
+"   autocmd FileType vimfiler call s:vimfiler_my_settings()
+" augroup END
+"
+" function! s:vimfiler_my_settings()
+"   " qで終了（バッファに残らない）
+"   nmap <buffer> q <Plug>(vimfiler_exit)
+"   " Qで隠す（バッファに残る）
+"   nmap <buffer> Q <Plug>(vimfiler_hide)
+" endfunction
 
 
 " ---------------------------------------------------------------------------------
@@ -581,6 +656,36 @@ endfor
 
 
 " ---------------------------------------------------------------------------------
+" rsense
+" ---------------------------------------------------------------------------------
+" http://portalshit.net/2012/09/12/how-to-setup-rsense-with-vim
+" http://alice345.hatenablog.com/entry/2014/01/03/130053
+let g:rsenseUseOmniFunc = 1
+let g:rsenseHome = '/usr/local/Cellar/rsense/0.3/libexec'
+
+
+" ---------------------------------------------------------------------------------
+" neocomplete
+" ---------------------------------------------------------------------------------
+let g:neocomplete#enable_at_startup               = 1
+let g:neocomplete#auto_completion_start_length    = 3
+let g:neocomplete#enable_ignore_case              = 1
+let g:neocomplete#enable_smart_case               = 1
+let g:neocomplete#enable_camel_case               = 1
+let g:neocomplete#use_vimproc                     = 1
+let g:neocomplete#sources#buffer#cache_limit_size = 1000000
+let g:neocomplete#sources#tags#cache_limit_size   = 30000000
+let g:neocomplete#enable_fuzzy_completion         = 1
+let g:neocomplete#lock_buffer_name_pattern        = '\*ku\*'
+
+" .や::を入力したときにオムニ補完が有効になるようにする
+if !exists('g:neocomplete#force_omni_input_patterns')
+  let g:neocomplete#force_omni_input_patterns = {}
+endif
+let g:neocomplete#force_omni_input_patterns.ruby  = '[^. *\t]\.\w*\|\h\w*::'
+
+
+" ---------------------------------------------------------------------------------
 " カラースキームの設定 
 " ---------------------------------------------------------------------------------
 colorscheme monokai
@@ -589,4 +694,5 @@ colorscheme monokai
 " colorscheme jellybeans
 " colorscheme iceberg
 " colorscheme railscasts
+
 
