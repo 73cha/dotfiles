@@ -2,47 +2,94 @@
 " ---------------------------------------------------------------------------------
 " 基本設定
 " ---------------------------------------------------------------------------------
-set nocompatible " vi互換しない
-set synmaxcol=200 " 色付けを300文字までに制限
-set ttyfast " ターミナル接続を高速にする
-set lazyredraw " マクロなどの途中経過を描写しない
+" vi互換しない
+set nocompatible
+
+" 色付けを300文字までに制限
+set synmaxcol=200
+
+" ターミナル接続を高速にする
+set ttyfast
+
+" マクロなどの途中経過を描写しない
+set lazyredraw
 
 
 " ---------------------------------------------------------------------------------
 " フォーマット
 " ---------------------------------------------------------------------------------
-set autoindent " 新しい行のインデントを現在行と同じにする
-set list " タブ文字、行末など不可視文字を表示
-set showmatch " 閉じ括弧が入力されたとき、対応する括弧を表示する
-set smartindent " 新しい行を作ったときに高度な自動インデントを行う
+" 新しい行のインデントを現在行と同じにする
+set autoindent
 
-set shiftwidth=2 " シフト移動幅
-set backspace=2 " スペース幅
-set tabstop=2 " タブ幅
+" タブ文字、行末など不可視文字を表示
+set list
 
-set smartindent " 行頭の余白内でTabを打ち込むと、'shiftwidth'の数だけインデントする
-set expandtab " タブの代わりに空白文字を指定する
+" 閉じ括弧が入力されたとき、対応する括弧を表示する
+set showmatch
+
+" 新しい行を作ったときに高度な自動インデントを行う
+set smartindent 
+
+" シフト移動幅
+set shiftwidth=2 
+
+" スペース幅
+set backspace=2
+
+" タブ幅
+set tabstop=2
+
+" 行頭の余白内でTabを打ち込むと、'shiftwidth'の数だけインデントする
+set smartindent
+
+" タブの代わりに空白文字を指定する
+set expandtab
+
+" softtabstop: TABキーやBSキーを打ち込んだときに動く幅の設定
+setlocal softtabstop=2 
 
 
 " ---------------------------------------------------------------------------------
 " システム
 " ---------------------------------------------------------------------------------
-set noswapfile " swapファイルを作らない
-set nowritebackup " バックアップファイルを作らない
-set nobackup " バックアップをしない
+" swapファイルを作らない
+set noswapfile
 
-set noerrorbells " エラー音抑止(gvimはgvimrcで指定)
-set novisualbell " ビジュアルベル抑止(gvimはgvimrcで指定)
-set visualbell t_vb= " ビープ音抑止(gvimはgvimrcで指定)
-set wildmenu " コマンドライン補完を便利に
+" バックアップファイルを作らない
+set nowritebackup
 
-set clipboard+=unnamed " OSのクリップボードを使用する
-set whichwrap=b,s,h,l,<,>,[,] " カーソルを行頭、行末で止まらないようにする
+" バックアップをしない
+set nobackup
 
-set confirm " 保存されていないファイルがあるとき、終了前に保存確認
-set hidden " 保存されていないファイルがあるときでも、保存しないで他のファイルを表示
-set autoread " 外部でファイルに変更がされた場合は読みなおす
-set browsedir=buffer " ファイル保存時の場所を、開いているファイルが有る場所に設定
+" エラー音抑止(gvimはgvimrcで指定)
+set noerrorbells
+
+" ビジュアルベル抑止(gvimはgvimrcで指定)
+set novisualbell
+
+" ビープ音抑止(gvimはgvimrcで指定)
+set visualbell t_vb=
+
+" コマンドライン補完を便利に
+set wildmenu
+
+" OSのクリップボードを使用する
+set clipboard+=unnamed
+
+" カーソルを行頭、行末で止まらないようにする
+set whichwrap=b,s,h,l,<,>,[,]
+
+" 保存されていないファイルがあるとき、終了前に保存確認
+set confirm
+
+" 保存されていないファイルがあるときでも、保存しないで他のファイルを表示
+set hidden
+
+" 外部でファイルに変更がされた場合は読みなおす
+set autoread
+
+ " ファイル保存時の場所を、開いているファイルが有る場所に設定
+set browsedir=buffer
 
 
 " ---------------------------------------------------------------------------------
@@ -81,8 +128,7 @@ nnoremap ; :
 " sキーを潰す
 nnoremap s <Nop>
 
-
-" 垂直分割
+" 画面分割
 nnoremap sv :<C-u>vs<CR>
 nnoremap ss :<C-u>sp<CR>
 
@@ -134,9 +180,6 @@ nnoremap sq :<C-u>q<CR>
 " バッファを閉じる
 nnoremap sQ :<C-u>bd<CR>
 
-" 対応する括弧に移動
-noremap <Space>m %
-
 " Enterで改行
 noremap <CR> o<ESC>
 
@@ -146,34 +189,79 @@ noremap <Space>h ^
 " 行末に飛ぶをスペース+l
 noremap <Space>l $
 
+" rubyでよく使うdef...endなども%で移動出来るようにする
+if !exists('loaded_matchit')
+  " matchitを有効化
+  runtime macros/matchit.vim
+endif
+
+" 対応する括弧に移動
+noremap <Space>m %
+
 
 " ---------------------------------------------------------------------------------
 " 検索
 " --------------------------------------------------------------------------------
-set incsearch " インクリメンタルサーチを有効にする
-set ignorecase " 大文字小文字を区別しない
-set smartcase " 大文字で検索されたら対象を大文字限定にする
-set wrapscan " 行末まで検索したら行頭に戻る
+" インクリメンタルサーチを有効にする
+set incsearch
+
+" 大文字小文字を区別しない
+set ignorecase 
+
+" 大文字で検索されたら対象を大文字限定にする
+set smartcase 
+
+" 行末まで検索したら行頭に戻る
+set wrapscan 
 
 
 " ---------------------------------------------------------------------------------
 " 表示
 " --------------------------------------------------------------------------------
-syntax on " シンタックスを有効にする
-set title " 編集中のファイル名を表示
-set number " 行番号の表示
-set cursorline " 行を強調表示
-set background=dark " 暗い背景色に合わせた配色にする
-set hlsearch "検索結果をハイライトする
-set ruler " ルーラーを表示
-set nowrap " 行を折り返さない
-set colorcolumn=80 " 80行目に色を付ける
-set showcmd " タイプ途中のコマンドを画面最下行に表示
-set laststatus=2 "ステータスラインを常に表示する
-set cmdheight=5 " コマンドラインの高さ
-set scrolloff=5 " 上下5行の視界を確保
-set sidescrolloff=16 " 左右スクロール時の視界を確保
-set backspace=indent,eol,start " バックスペースでインデントや改行を削除可能
+" シンタックスを有効にする
+syntax on 
+
+" 編集中のファイル名を表示
+set title
+
+" 行番号の表示
+set number
+
+" 行を強調表示
+set cursorline 
+
+" 暗い背景色に合わせた配色にする
+set background=dark 
+
+" 検索結果をハイライトする
+set hlsearch 
+
+" ルーラーを表示
+set ruler 
+
+" 行を折り返さない
+set nowrap
+
+" 80行目に色を付ける
+set colorcolumn=80 
+
+" タイプ途中のコマンドを画面最下行に表示
+set showcmd 
+
+"ステータスラインを常に表示する
+set laststatus=2 
+
+" コマンドラインの高さ
+set cmdheight=5 
+
+" 上下5行の視界を確保
+set scrolloff=5 
+
+" 左右スクロール時の視界を確保
+set sidescrolloff=16 
+
+" バックスペースでインデントや改行を削除可能
+set backspace=indent,eol,start 
 
 " 全角スペースの表示
 " http://inari.hatenablog.com/entry/2014/05/05/231307
@@ -189,11 +277,9 @@ augroup ZenkakuSpace
 augroup END
 call ZenkakuSpace()
 endif
- 
 
 
-
-"  NeoBundleの設定 
+" NeoBundleの設定 
 " ---------------------------------------------------------------------------------
 " ランタイムパスの設定
 " ---------------------------------------------------------------------------------
@@ -211,7 +297,9 @@ filetype off " ファイル形式の検出を無効化
 " ---------------------------------------------------------------------------------
 " プラグイン管理
 " ---------------------------------------------------------------------------------
-call neobundle#begin(expand('~/.vim/bundle/')) " プラグインインストールディレクトリを指定
+" プラグインインストールディレクトリを指定
+call neobundle#begin(expand('~/.vim/bundle/')) 
+
 NeoBundleFetch 'Shougo/neobundle.vim'
 
 " NeoBundle
@@ -219,22 +307,43 @@ NeoBundleFetch 'Shougo/neobundle.vim'
 
 " HTML/CSS
 NeoBundleLazy 'mattn/emmet-vim', {
-\   'autoload': { 'commands': ['Emmet'] }
+\   'autoload': { 'filetypes': ['html', 'slim', 'eruby', 'css', 'scss', 'sass'] }
 \ }
 
 " Utillity
-NeoBundle 'tpope/vim-surround' " テキストオブジェクトの拡張
+" テキストオブジェクトの拡張
+NeoBundle 'tpope/vim-surround'
 
 " Ruby向けにendを自動挿入してくれる
 NeoBundleLazy 'tpope/vim-endwise', {
-\   'autoload' : { 'insert' : 1 }
-\ } 
+\   'autoload' : { 'insert': 1 }
+\ }
 
-NeoBundle 'tomtom/tcomment_vim' " コメントON/OFFを手軽に実行
-NeoBundle 'kana/vim-submode' " http://d.hatena.ne.jp/thinca/20130131/1359567419
-NeoBundle 'terryma/vim-multiple-cursors' " SublimeTextのcmd+dと同じ動きをする
-NeoBundle 'Yggdroot/indentLine' " コードのインデントを可視化
-" NeoBundle 'jiangmiao/auto-pairs' " 記号のペアを自動挿入
+" コメントON/OFFを手軽に実行
+NeoBundleLazy 'tomtom/tcomment_vim', {
+\   'autoload': { 'mappings': ['<c-_><c-_>'] }
+\ }
+
+" http://d.hatena.ne.jp/thinca/20130131/1359567419
+NeoBundle 'kana/vim-submode' 
+
+" SublimeTextのcmd+dと同じ動きをする
+NeoBundleLazy 'terryma/vim-multiple-cursors', {
+\   'autoload': { 'mappings': ['<C-n>', '<C-p>'] }
+\ }
+
+" コードのインデントを可視化
+if has('conceal')
+  NeoBundleLazy 'Yggdroot/indentLine', {
+  \   'autoload' : {
+  \     'commands' : ['IndentLinesReset', 'IndentLinesToggle'],
+  \     'filetypes': ['html', 'slim', 'eruby', 'css', 'scss', 'sass', 'php', 'javascripts', 'coffee', 'ruby']
+  \   }
+  \ }
+endif
+
+" 記号のペアを自動挿入
+NeoBundle 'jiangmiao/auto-pairs'
 
 " Shell
 " Vimからshellを使えるようにする
@@ -271,7 +380,7 @@ NeoBundleLazy 'othree/html5.vim', {
 
 " Javascriptのシンタックス
 NeoBundleLazy 'pangloss/vim-javascript', {
-\   'autoload': { 'filetypes': ['js'] }
+\   'autoload': { 'filetypes': ['javascript'] }
 \ }
 
 " Coffeescriptのシンタックス
@@ -281,7 +390,7 @@ NeoBundleLazy 'kchmck/vim-coffee-script', {
 
 " Rubyのシンタックス
 NeoBundleLazy 'vim-ruby/vim-ruby', {
-\   'autoload': { 'filetypes': ['rb'] }
+\   'autoload': { 'filetypes': ['ruby'] }
 \ }
 
 " ログファイルを色づけしてくれる
@@ -290,15 +399,13 @@ NeoBundleLazy 'vim-scripts/AnsiEsc.vim', {
 \ }
 
 " Slimのシンタックス
-NeoBundleLazy "slim-template/vim-slim", {
+NeoBundleLazy 'slim-template/vim-slim', {
 \   'autoload': { 'filetypes': ['slim'] }
 \ }
 
 " Failler
 " ファイル検索を便利に
-NeoBundleLazy 'Shougo/unite.vim' , {
-\   'autoload' : { 'commands' : ['Unite'] }
-\ }
+NeoBundle 'Shougo/unite.vim'
 
 NeoBundleLazy 'Shougo/vimfiler', {
 \ 'depends' : ['Shougo/unite.vim'],
@@ -312,7 +419,8 @@ NeoBundleLazy 'Shougo/vimfiler', {
 NeoBundle 'Shougo/neomru.vim'
 
 " Statusline
-NeoBundle 'bling/vim-airline' " ステータスラインをかっこ良く
+" ステータスラインをかっこ良く
+NeoBundle 'bling/vim-airline'
 
 " Color schema
 NeoBundle 'altercation/vim-colors-solarized'
@@ -331,9 +439,7 @@ NeoBundle 'Lokaltog/vim-easymotion'
 
 " Easyaliign
 NeoBundleLazy 'junegunn/vim-easy-align', {
-\   'autoload': {
-\     'commands' : ['EasyAlign'],
-\   }
+\   'autoload': { 'commands': ['EasyAlign'] }
 \ }
 
 " CSScomb
@@ -348,6 +454,29 @@ if has('lua')
   \   'autoload' : { 'insert' : 1,}
   \ }
 endif
+
+" ReFeをvimから使えるようにする
+NeoBundle 'thinca/vim-ref'
+
+" vimからrubocopで構文チェック出来るようにする
+NeoBundleLazy 'scrooloose/syntastic', {
+\   'autoload': { 'filetypes': ['ruby'] }
+\ }
+
+" ctags
+NeoBundleLazy 'szw/vim-tags', {
+\   'autoload': { 'mappings': ['<C-]>'] }
+\ }
+
+NeoBundleLazy 'tpope/vim-rails', {
+\   'autoload': { 'filetypes': ['ruby'] }
+\ }
+
+" unite-rails
+NeoBundleLazy 'basyura/unite-rails', {
+\   'depends': 'Shougo/unite.vim',
+\   'autoload': { 'filetypes': ['ruby'] }
+\ }
 
 call neobundle#end()
 
@@ -397,6 +526,13 @@ nmap <Space>f [filer]
 " ---------------------------------------------------------------------------------
 nnoremap [ansiesc] <Nop>
 nmap <Space>n [ansiesc]
+
+
+" ---------------------------------------------------------------------------------
+" IndentLines
+" ---------------------------------------------------------------------------------
+nnoremap [indentline] <Nop>
+nmap <Space>t [indentline]
 
 
 " NeoBundleプラグインの設定 
@@ -533,6 +669,12 @@ nnoremap <silent> [ansiesc] :<C-u>AnsiEsc<CR>
 
 
 " ---------------------------------------------------------------------------------
+" IndentLines
+" ---------------------------------------------------------------------------------
+nnoremap <silent> [indentline] :<C-u>IndentLinesToggle<CR>
+
+
+" ---------------------------------------------------------------------------------
 " Vimfiler
 " ---------------------------------------------------------------------------------
 
@@ -549,17 +691,17 @@ nnoremap <silent> [filer]e :<C-u>VimFilerExplorer<CR>
 "現在開いているバッファのディレクトリを開く
 nnoremap <silent> [filer]q :<C-u>VimFilerBufferDir<CR>
 
-" " vimfilerを開いている時のキーマッピング
-" augroup vimfiler
-"   autocmd FileType vimfiler call s:vimfiler_my_settings()
-" augroup END
-"
-" function! s:vimfiler_my_settings()
-"   " qで終了（バッファに残らない）
-"   nmap <buffer> q <Plug>(vimfiler_exit)
-"   " Qで隠す（バッファに残る）
-"   nmap <buffer> Q <Plug>(vimfiler_hide)
-" endfunction
+" vimfilerを開いている時のキーマッピング
+augroup vimfiler
+  autocmd FileType vimfiler call s:vimfiler_my_settings()
+augroup END
+
+function! s:vimfiler_my_settings()
+  " qで終了（バッファに残らない）
+  nmap <buffer> q <Plug>(vimfiler_exit)
+  " Qで隠す（バッファに残る）
+  nmap <buffer> Q <Plug>(vimfiler_hide)
+endfunction
 
 
 " ---------------------------------------------------------------------------------
@@ -683,6 +825,68 @@ if !exists('g:neocomplete#force_omni_input_patterns')
   let g:neocomplete#force_omni_input_patterns = {}
 endif
 let g:neocomplete#force_omni_input_patterns.ruby  = '[^. *\t]\.\w*\|\h\w*::'
+
+
+" ---------------------------------------------------------------------------------
+" syntastic
+" ---------------------------------------------------------------------------------
+" http://qiita.com/yuku_t/items/0ac33cea18e10f14e185
+let g:syntastic_mode_map = { 'mode': 'passive', 'active_filetypes': ['ruby'] }
+let g:syntastic_ruby_checkers = ['rubocop']
+
+
+" ---------------------------------------------------------------------------------
+" ctags
+" ---------------------------------------------------------------------------------
+" http://k0kubun.hatenablog.com/entry/2013/11/02/103400
+let g:vim_tags_project_tags_command = "/usr/local/bin/ctags -R {OPTIONS} {DIRECTORY} 2>/dev/null"
+let g:vim_tags_gems_tags_command = "/usr/local/bin/ctags -R {OPTIONS} `bundle show --paths` 2>/dev/null"
+
+
+" ---------------------------------------------------------------------------------
+" vim-rails
+" ---------------------------------------------------------------------------------
+" http://qiita.com/alpaca_taichou/items/ab2ad83ddbaf2f6ce7fb
+" https://gist.github.com/alpaca-tc/4521467
+let g:rails_default_file='config/database.yml'
+let g:rails_level = 4
+let g:rails_mappings=1
+let g:rails_modelines=0
+" let g:rails_some_option = 1
+" let g:rails_statusline = 1
+" let g:rails_subversion=0
+" let g:rails_syntax = 1
+let g:rails_url='http://localhost:8080'
+" let g:rails_ctags_arguments='--languages=-javascript'
+" let g:rails_ctags_arguments = ''
+
+function! s:setup_rails_setting()
+  nnoremap <buffer><Space>r :R<CR>
+  nnoremap <buffer><Space>a :A<CR>
+  nnoremap <buffer><Space>m :Rmodel<Space>
+  nnoremap <buffer><Space>cc :Rcontroller<Space>
+  nnoremap <buffer><Space>v :Rview<Space>
+  nnoremap <buffer><Space>p :Rpreview<CR>
+
+  nnoremap <buffer><C-H><C-H><C-H>  :<C-U>Unite rails/view<CR>
+  nnoremap <buffer><C-H><C-H>       :<C-U>Unite rails/model<CR>
+  nnoremap <buffer><C-H>            :<C-U>Unite rails/controller<CR>
+
+  nnoremap <buffer><C-H>c           :<C-U>Unite rails/config<CR>
+  nnoremap <buffer><C-H>s           :<C-U>Unite rails/spec<CR>
+  nnoremap <buffer><C-H>m           :<C-U>Unite rails/db -input=migrate<CR>
+  nnoremap <buffer><C-H>l           :<C-U>Unite rails/lib<CR>
+  nnoremap <buffer><expr><C-H>g     ':e '.b:rails_root.'/Gemfile<CR>'
+  nnoremap <buffer><expr><C-H>r     ':e '.b:rails_root.'/config/routes.rb<CR>'
+  nnoremap <buffer><expr><C-H>se    ':e '.b:rails_root.'/db/seeds.rb<CR>'
+  nnoremap <buffer><C-H>ra          :<C-U>Unite rails/rake<CR>
+  nnoremap <buffer><C-H>h           :<C-U>Unite rails/heroku<CR>
+endfunction
+
+augroup RailsDictSetting
+  autocmd!
+  autocmd User Rails call s:setup_rails_setting()
+augroup END
 
 
 " ---------------------------------------------------------------------------------
