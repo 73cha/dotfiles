@@ -307,7 +307,7 @@ NeoBundleFetch 'Shougo/neobundle.vim'
 
 " HTML/CSS
 NeoBundleLazy 'mattn/emmet-vim', {
-\   'autoload': { 'filetypes': ['html', 'slim', 'eruby', 'css', 'scss', 'sass'] }
+\   'autoload': { 'filetypes': ['html', 'slim', 'eruby', 'css', 'scss', 'sass', 'php'] }
 \ }
 
 " Utillity
@@ -460,7 +460,7 @@ NeoBundle 'thinca/vim-ref'
 
 " vimからrubocopで構文チェック出来るようにする
 NeoBundleLazy 'scrooloose/syntastic', {
-\   'autoload': { 'filetypes': ['ruby'] }
+\   'autoload': { 'filetypes': ['ruby', 'scss', 'sass'] }
 \ }
 
 " ctags
@@ -577,6 +577,7 @@ nnoremap <silent> [unite]<CR> :<C-u>Unite<Space>file_rec:!<CR>
 
 " unite.vimを開いている間のキーマッピング
 augroup unite 
+  autocmd!
   autocmd FileType unite call s:unite_my_settings()
 augroup END
 
@@ -693,6 +694,7 @@ nnoremap <silent> [filer]q :<C-u>VimFilerBufferDir<CR>
 
 " vimfilerを開いている時のキーマッピング
 augroup vimfiler
+  autocmd!
   autocmd FileType vimfiler call s:vimfiler_my_settings()
 augroup END
 
@@ -831,8 +833,9 @@ let g:neocomplete#force_omni_input_patterns.ruby  = '[^. *\t]\.\w*\|\h\w*::'
 " syntastic
 " ---------------------------------------------------------------------------------
 " http://qiita.com/yuku_t/items/0ac33cea18e10f14e185
-let g:syntastic_mode_map = { 'mode': 'passive', 'active_filetypes': ['ruby'] }
-let g:syntastic_ruby_checkers = ['rubocop']
+let g:syntastic_mode_map = { 'mode': 'passive', 'active_filetypes': ['ruby', 'scss'] }
+let g:syntastic_ruby_checkers = ['rubocop', 'scss_lint']
+let g:syntastic_scss_checkers = ['scss_lint']
 
 
 " ---------------------------------------------------------------------------------
@@ -856,7 +859,7 @@ let g:rails_modelines=0
 " let g:rails_statusline = 1
 " let g:rails_subversion=0
 " let g:rails_syntax = 1
-let g:rails_url='http://localhost:8080'
+" let g:rails_url='http://localhost:8080'
 " let g:rails_ctags_arguments='--languages=-javascript'
 " let g:rails_ctags_arguments = ''
 
