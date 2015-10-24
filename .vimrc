@@ -40,8 +40,7 @@ set backspace=2
 set tabstop=2
 
 " 行頭の余白内でTabを打ち込むと、'shiftwidth'の数だけインデントする
-set smartindent
-
+set smartindent 
 " タブの代わりに空白文字を指定する
 set expandtab
 
@@ -375,7 +374,7 @@ NeoBundleLazy 'cakebaker/scss-syntax.vim', {
 
 " HTML5のシンタックス
 NeoBundleLazy 'othree/html5.vim', {
-\   'autoload': { 'filetypes': ['html5'] }
+\   'autoload': { 'filetypes': ['html'] }
 \ }
 
 " Javascriptのシンタックス
@@ -443,11 +442,13 @@ NeoBundleLazy 'junegunn/vim-easy-align', {
 \ }
 
 " CSScomb
+" `npm install -g csscomb` でnodeのモジュールをインストール
 NeoBundleLazy 'csscomb/vim-csscomb', {
 \   'autoload': { 'commands': ['CSSComb'] }
 \ }
 
 " neocomplete
+" luaオプション付きでvimをインストール
 if has('lua')
   NeoBundleLazy 'Shougo/neocomplete.vim', {
   \   'depends' : 'Shougo/vimproc',
@@ -456,27 +457,33 @@ if has('lua')
 endif
 
 " ReFeをvimから使えるようにする
+" `gem install refe2` でgemもインストール
 NeoBundle 'thinca/vim-ref'
 
 " vimからrubocopで構文チェック出来るようにする
+" `gem install rubocop` でgemもインストール
 NeoBundleLazy 'scrooloose/syntastic', {
 \   'autoload': { 'filetypes': ['ruby', 'scss', 'sass'] }
 \ }
 
 " ctags
+" `brew install ctags` でシステムの最新のctagsを入れる
 NeoBundleLazy 'szw/vim-tags', {
 \   'autoload': { 'mappings': ['<C-]>'] }
 \ }
 
 NeoBundleLazy 'tpope/vim-rails', {
-\   'autoload': { 'filetypes': ['ruby'] }
+\   'autoload': { 'filetypes': ['ruby', 'slim', 'scss'] }
 \ }
 
 " unite-rails
 NeoBundleLazy 'basyura/unite-rails', {
 \   'depends': 'Shougo/unite.vim',
-\   'autoload': { 'filetypes': ['ruby'] }
+\   'autoload': { 'filetypes': ['ruby', 'slim', 'scss'] }
 \ }
+
+" HTML上の記号を実体参照に変換する
+NeoBundle 'inotom/str2htmlentity'
 
 call neobundle#end()
 
@@ -834,7 +841,7 @@ let g:neocomplete#force_omni_input_patterns.ruby  = '[^. *\t]\.\w*\|\h\w*::'
 " ---------------------------------------------------------------------------------
 " http://qiita.com/yuku_t/items/0ac33cea18e10f14e185
 let g:syntastic_mode_map = { 'mode': 'passive', 'active_filetypes': ['ruby', 'scss'] }
-let g:syntastic_ruby_checkers = ['rubocop', 'scss_lint']
+let g:syntastic_ruby_checkers = ['rubocop']
 let g:syntastic_scss_checkers = ['scss_lint']
 
 
@@ -861,7 +868,6 @@ let g:rails_modelines=0
 " let g:rails_syntax = 1
 " let g:rails_url='http://localhost:8080'
 " let g:rails_ctags_arguments='--languages=-javascript'
-" let g:rails_ctags_arguments = ''
 
 function! s:setup_rails_setting()
   nnoremap <buffer><Space>r :R<CR>
@@ -890,6 +896,13 @@ augroup RailsDictSetting
   autocmd!
   autocmd User Rails call s:setup_rails_setting()
 augroup END
+
+
+" ---------------------------------------------------------------------------------
+" str2htmlentity
+" ---------------------------------------------------------------------------------
+vmap <silent> sx :Str2HtmlEntity<cr>
+vmap <silent> sr :Entity2HtmlString<cr>
 
 
 " ---------------------------------------------------------------------------------
