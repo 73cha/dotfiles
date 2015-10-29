@@ -258,6 +258,10 @@ alias gcob="git checkout -b"
 alias dr="direnv reload"
 
 
+## peco ls-cd
+alias pls="peco-lscd"
+
+
 #############################################
 # Macで少し生産性の上がるBashエイリアス集
 # http://www.rickynews.com/blog/2014/07/19/useful-bash-aliases/ ##
@@ -333,8 +337,7 @@ set _Z_DATA="$HOME/.zsh.d"
 source ~/.zsh.d/z/z.sh
 
 # http://qiita.com/maxmellon/items/23325c22581e9187639e
-function peco-z-search
-{
+function peco-z-search {
   which peco z > /dev/null
   if [ $? -ne 0 ]; then
     echo "Please install peco and z"
@@ -351,7 +354,13 @@ function peco-z-search
 zle -N peco-z-search
 bindkey '^f' peco-z-search
 
-
+# http://qiita.com/xtetsuji/items/05f6f4c1b17854cdd75b
+function peco-lscd {
+    local dir="$( find . -maxdepth 1 -type d | sed -e 's;\./;;' | peco )"
+    if [ ! -z "$dir" ] ; then
+        cd "$dir"
+    fi
+}
 
 # node_modules path 2014/04/02
 #export NODE_PATH="/usr/local/lib/node_modules"
