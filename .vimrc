@@ -168,10 +168,10 @@ nnoremap st :<C-u>tabnew<CR>
 nnoremap sx :<C-u>tabclose<CR>
 
 " 次のタブへ移動
-nnoremap sn gt
+" nnoremap sn gt
 
 " 前のタブへ戻る
-nnoremap sp gT
+" nnoremap sp gT
 
 " ウィンドウを閉じる
 nnoremap sq :<C-u>q<CR>
@@ -374,7 +374,7 @@ NeoBundleLazy 'cakebaker/scss-syntax.vim', {
 
 " HTML5のシンタックス
 NeoBundleLazy 'othree/html5.vim', {
-\   'autoload': { 'filetypes': ['html'] }
+\   'autoload': { 'filetypes': ['html', 'slim', 'php'] }
 \ }
 
 " Javascriptのシンタックス
@@ -444,7 +444,7 @@ NeoBundleLazy 'junegunn/vim-easy-align', {
 " CSScomb
 " `npm install -g csscomb` でnodeのモジュールをインストール
 NeoBundleLazy 'csscomb/vim-csscomb', {
-\   'autoload': { 'commands': ['CSSComb'] }
+\   'autoload': { 'commands': ['CSScomb'] }
 \ }
 
 " neocomplete
@@ -603,16 +603,22 @@ endfunction
 " ---------------------------------------------------------------------------------
 " vim-submode
 " ---------------------------------------------------------------------------------
+" http://d.hatena.ne.jp/thinca/20130131/1359567419
 " Windowサイズの変更
 call submode#enter_with('bufmove', 'n', '', 's>', '<C-w>>')
 call submode#enter_with('bufmove', 'n', '', 's<', '<C-w><')
 call submode#enter_with('bufmove', 'n', '', 's+', '<C-w>+')
 call submode#enter_with('bufmove', 'n', '', 's-', '<C-w>-')
-
 call submode#map('bufmove', 'n', '', '>', '<C-w>>') " s> >連打で幅を広げる
 call submode#map('bufmove', 'n', '', '<', '<C-w><') " s< <連打で幅を減らす
 call submode#map('bufmove', 'n', '', '+', '<C-w>+') " s+ +連打で高さを広げる
 call submode#map('bufmove', 'n', '', '-', '<C-w>-') " s- -連打で高さを減らす
+
+" Tab移動
+call submode#enter_with('changetab', 'n', '', 'sn', 'gt')
+call submode#enter_with('changetab', 'n', '', 'sp', 'gT')
+call submode#map('changetab', 'n', '', 'n', 'gt') " sn n連打でタブを次へ移動する
+call submode#map('changetab', 'n', '', 'p', 'gT') " sp p連打でタブを前へ戻る
 
 
 " ---------------------------------------------------------------------------------
@@ -840,6 +846,10 @@ let g:neocomplete#force_omni_input_patterns.ruby  = '[^. *\t]\.\w*\|\h\w*::'
 " syntastic
 " ---------------------------------------------------------------------------------
 " http://qiita.com/yuku_t/items/0ac33cea18e10f14e185
+" syntastic_mode_map は 'active' もしくは 'passive' を指定します。
+" 'active' だとバッファを保存するたびにsyntasticが走り、'passive' の場合は :SyntasticCheck 実行時に走ります。
+" 'active_filetypes' は保存の度にsyntasticを走らせるファイルタイプを指定します。
+" ２つをあわせると、基本的にsyntasticは走らせないけど、rubyのときだけは自動的に走らせる、という設定になります。
 let g:syntastic_mode_map = { 'mode': 'passive', 'active_filetypes': ['ruby', 'scss'] }
 let g:syntastic_ruby_checkers = ['rubocop']
 let g:syntastic_scss_checkers = ['scss_lint']

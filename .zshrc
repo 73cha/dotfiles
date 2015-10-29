@@ -317,6 +317,15 @@ eval "$(direnv hook zsh)"
 
 
 
+#############################################
+# brew-file
+#############################################
+if [ -f $(brew --prefix)/etc/brew-wrap ];then
+  source $(brew --prefix)/etc/brew-wrap
+fi
+
+
+
 # node_modules path 2014/04/02
 #export NODE_PATH="/usr/local/lib/node_modules"
 
