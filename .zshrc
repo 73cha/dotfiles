@@ -297,8 +297,8 @@ eval $(gdircolors ~/terminal_color/dircolors-solarized/dircolors.ansi-universal)
 # zsh-syntax-highlight
 # http://blog.glidenote.com/blog/2012/12/15/zsh-syntax-highlighting/
 #############################################
-if [ -f ~/.zsh/functions/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]; then
-  source ~/.zsh/functions/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+if [ -f ~/.zsh.d/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]; then
+  source ~/.zsh.d/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 fi
 
 
@@ -323,6 +323,33 @@ eval "$(direnv hook zsh)"
 if [ -f $(brew --prefix)/etc/brew-wrap ];then
   source $(brew --prefix)/etc/brew-wrap
 fi
+
+
+
+#############################################
+# z
+#############################################
+set _Z_DATA="$HOME/.zsh.d"
+source ~/.zsh.d/z/z.sh
+
+# http://qiita.com/maxmellon/items/23325c22581e9187639e
+function peco-z-search
+{
+  which peco z > /dev/null
+  if [ $? -ne 0 ]; then
+    echo "Please install peco and z"
+    return 1
+  fi
+  local res=$(z | sort -rn | cut -c 12- | peco)
+  if [ -n "$res" ]; then
+    BUFFER+="cd $res"
+    zle accept-line
+  else
+    return 1
+  fi
+}
+zle -N peco-z-search
+bindkey '^f' peco-z-search
 
 
 
