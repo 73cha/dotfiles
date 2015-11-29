@@ -171,7 +171,7 @@ export PATH="$HOME/.nodebrew/current/bin:$PATH"
 ################################################
 # bashmarks
 ################################################
-source ~/.local/bin/bashmarks.sh
+# source ~/.local/bin/bashmarks.sh
 
 
 

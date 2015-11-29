@@ -485,6 +485,29 @@ NeoBundleLazy 'basyura/unite-rails', {
 " HTML上の記号を実体参照に変換する
 NeoBundle 'inotom/str2htmlentity'
 
+
+" ---------------------------------------------------------------------------------
+" Jazzradio.vim 
+" ---------------------------------------------------------------------------------
+if neobundle#tap('jazzradio.vim')
+    call neobundle#config({
+    \   'autoload' : {
+    \     'unite_sources' : [
+    \       'jazzradio'
+    \     ],
+    \     'commands' : [
+    \       'JazzradioUpdateChannels',
+    \       'JazzradioStop',
+    \       {
+    \         'name' : 'JazzradioPlay',
+    \         'complete' : 'customlist,jazzradio#channel_id_complete'
+    \       }
+    \     ],
+    \     'function_prefix' : 'jazzradio'
+    \   }
+    \ })
+endif
+
 call neobundle#end()
 
 NeoBundleCheck " インストールチェック
@@ -719,27 +742,6 @@ function! s:vimfiler_my_settings()
 endfunction
 
 
-" ---------------------------------------------------------------------------------
-" Jazzradio.vim 
-" ---------------------------------------------------------------------------------
-if neobundle#tap('jazzradio.vim')
-    call neobundle#config({
-    \   'autoload' : {
-    \     'unite_sources' : [
-    \       'jazzradio'
-    \     ],
-    \     'commands' : [
-    \       'JazzradioUpdateChannels',
-    \       'JazzradioStop',
-    \       {
-    \         'name' : 'JazzradioPlay',
-    \         'complete' : 'customlist,jazzradio#channel_id_complete'
-    \       }
-    \     ],
-    \     'function_prefix' : 'jazzradio'
-    \   }
-    \ })
-endif
 
 
 " ---------------------------------------------------------------------------------
