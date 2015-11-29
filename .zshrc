@@ -336,7 +336,13 @@ fi
 set _Z_DATA="$HOME/.zsh.d"
 source ~/.zsh.d/z/z.sh
 
+
+
+#############################################
+# peco連携
+#############################################
 # http://qiita.com/maxmellon/items/23325c22581e9187639e
+# zからpecoする
 function peco-z-search {
   which peco z > /dev/null
   if [ $? -ne 0 ]; then
@@ -355,6 +361,7 @@ zle -N peco-z-search
 bindkey '^f' peco-z-search
 
 # http://qiita.com/xtetsuji/items/05f6f4c1b17854cdd75b
+# ls -> cd をpecoする
 function peco-lscd {
     local dir="$( find . -maxdepth 1 -type d | sed -e 's;\./;;' | peco )"
     if [ ! -z "$dir" ] ; then
@@ -362,8 +369,13 @@ function peco-lscd {
     fi
 }
 
-# node_modules path 2014/04/02
-#export NODE_PATH="/usr/local/lib/node_modules"
+# http://qiita.com/shepabashi/items/f2bc2be37a31df49bca5
+# コマンド履歴をpecoする
+function peco-history-selection() {
+    BUFFER=`history -n 1 | tail -r  | awk '!a[$0]++' | peco`
+    CURSOR=$#BUFFER
+    zle reset-prompt
+}
 
-# node 2014/01/01
-#export PATH="/usr/local/share/npm/bin:$PAT
+zle -N peco-history-selection
+bindkey '^R' peco-history-selection
