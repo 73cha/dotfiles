@@ -14,6 +14,8 @@ set ttyfast
 " マクロなどの途中経過を描写しない
 set lazyredraw
 
+" フォントを指定(:h15はフォントサイズ)
+set guifont=RictyDiscord-Regular-Powerline:h15
 
 " ---------------------------------------------------------------------------------
 " フォーマット
@@ -420,6 +422,8 @@ NeoBundle 'Shougo/neomru.vim'
 " Statusline
 " ステータスラインをかっこ良く
 NeoBundle 'bling/vim-airline'
+" gitのブランチ名を表示
+NeoBundle 'itchyny/vim-gitbranch'
 
 " Color schema
 NeoBundle 'altercation/vim-colors-solarized'
@@ -448,7 +452,7 @@ NeoBundleLazy 'csscomb/vim-csscomb', {
 \ }
 
 " neocomplete
-" luaオプション付きでvimをインストール
+" luaオプション付きでvimをインストールする必要がある
 if has('lua')
   NeoBundleLazy 'Shougo/neocomplete.vim', {
   \   'depends' : 'Shougo/vimproc',
@@ -651,6 +655,7 @@ let g:airline#extensions#tabline#enabled = 1 " タブラインにもairlineを�
 let g:airline#extensions#tabline#show_buffers = 0 " （タブが一個の場合）バッファのリストをタブラインに表示する機能をオフ
 let g:airline#extensions#tabline#tab_nr_type = 1 " 0でそのタブで開いてるウィンドウ数、1で左のタブから連番
 
+let g:airline_section_a = '⭠ %{gitbranch#name()}'
 let g:airline_section_b = '%{getcwd()}'
 let g:airline_section_c = '%t'
 
@@ -663,7 +668,6 @@ let g:airline_theme='badwolf'
 let g:Powerline_symbols = 'fancy' " fancyテーマに切り替え
 
 let g:airline#extensions#tabline#enabled = 1 " タブラインにもairlineを適用
-set guifont=RictyDiscord-Regular-Powerline.ttf:h14 " airlineのフォントを指定(:h14はフォントサイズ)
 
 " ステータスラインの区切り文字を指定
 let g:airline_left_sep = '⮀'
