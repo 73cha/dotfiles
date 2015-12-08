@@ -241,17 +241,15 @@ alias surl="~/project/api/google_api/sh/url_shortener.sh"
 
 
 ## git ##
-alias ga="git add"
-alias gaa="git add ."
-alias gcm="git commit"
-alias gp="git push"
 alias gs="git status"
-alias gl="git log --pretty=format:'[%ad] %h %an : %s'"
+alias gst="git stash save"
 alias grf="git reflog"
 alias gmv="git mv"
-alias grmc="git rm chached"
-alias gco="git checkout"
-alias gcob="git checkout -b"
+alias grm="git rm"
+alias gc="git checkout"
+alias gcb="git checkout -b"
+alias gfp="git fetch --prune"
+alias gtree='git log --oneline --graph --decorate --all --format="%C(cyan bold)%an%Creset %C(yellow)%h%Creset %C(magenta reverse)%d%Creset %s"'
 
 
 ## direnv ##

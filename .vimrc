@@ -655,9 +655,9 @@ let g:airline#extensions#tabline#enabled = 1 " タブラインにもairlineを�
 let g:airline#extensions#tabline#show_buffers = 0 " （タブが一個の場合）バッファのリストをタブラインに表示する機能をオフ
 let g:airline#extensions#tabline#tab_nr_type = 1 " 0でそのタブで開いてるウィンドウ数、1で左のタブから連番
 
-let g:airline_section_a = '⭠ %{gitbranch#name()}'
 let g:airline_section_b = '%{getcwd()}'
-let g:airline_section_c = '%t'
+let g:airline_section_c = '⭠ %{gitbranch#name()}'
+" let g:airline_section_b = '%t'
 
 let g:airline#extensions#tabline#fnamemod = ':t' " タブに表示する名前（fnamemodifyの第二引数）
 
