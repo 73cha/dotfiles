@@ -378,4 +378,8 @@ function peco-history-selection() {
 zle -N peco-history-selection
 bindkey '^R' peco-history-selection
 
-
+# http://qiita.com/mutachii/items/00c0bae2a636750b0e09
+# ghiとpecoでissueを検索してブラウザで開く
+function peco-show-open-issue() {
+  ghi show -w $(ghi list --filter 'all' | peco)
+}

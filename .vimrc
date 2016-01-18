@@ -466,9 +466,9 @@ NeoBundle 'thinca/vim-ref'
 
 " vimからrubocopで構文チェック出来るようにする
 " `gem install rubocop` でgemもインストール
-NeoBundleLazy 'scrooloose/syntastic', {
-\   'autoload': { 'filetypes': ['ruby', 'scss', 'sass'] }
-\ }
+" NeoBundleLazy 'scrooloose/syntastic', {
+" \   'autoload': { 'filetypes': ['ruby', 'scss', 'sass'] }
+" \ }
 
 " ctags
 " `brew install ctags` でシステムの最新のctagsを入れる
@@ -856,9 +856,9 @@ let g:neocomplete#force_omni_input_patterns.ruby  = '[^. *\t]\.\w*\|\h\w*::'
 " 'active' だとバッファを保存するたびにsyntasticが走り、'passive' の場合は :SyntasticCheck 実行時に走ります。
 " 'active_filetypes' は保存の度にsyntasticを走らせるファイルタイプを指定します。
 " ２つをあわせると、基本的にsyntasticは走らせないけど、rubyのときだけは自動的に走らせる、という設定になります。
-let g:syntastic_mode_map = { 'mode': 'passive', 'active_filetypes': ['ruby', 'scss'] }
-let g:syntastic_ruby_checkers = ['rubocop']
-let g:syntastic_scss_checkers = ['scss_lint']
+" let g:syntastic_mode_map = { 'mode': 'passive', 'active_filetypes': ['ruby', 'scss'] }
+" let g:syntastic_ruby_checkers = ['rubocop']
+" let g:syntastic_scss_checkers = ['scss_lint']
 
 
 " ---------------------------------------------------------------------------------
