@@ -228,6 +228,8 @@ alias regl="rbenv exec gem list"
 alias msstp="mysql.server stop"
 alias msstt="mysql.server start"
 
+## postgre ##
+alias pgstt="postgres -D /usr/local/var/postgres"
 
 ## appache ##
 alias apstt="apachectl start"
