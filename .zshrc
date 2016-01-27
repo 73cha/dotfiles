@@ -229,7 +229,9 @@ alias msstp="mysql.server stop"
 alias msstt="mysql.server start"
 
 ## postgre ##
-alias pgstt="postgres -D /usr/local/var/postgres"
+## http://ossfan.net/manage/postgresql-11.html ##
+alias pgstt="pg_ctl -D /usr/local/var/postgres start -w"
+alias pgstp="pg_ctl -D /usr/local/var/postgres stop -m fast"
 
 ## appache ##
 alias apstt="apachectl start"
