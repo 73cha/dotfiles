@@ -212,8 +212,7 @@ alias bi="bundle install --path vendor/bundle"
 
 
 ## source .zshrc##
-alias sz="source ~/.zshrc"
-#alias sz="exec $SHELL"
+alias exs="exec $SHELL -l"
 
 
 ## rbenv ##
@@ -230,8 +229,8 @@ alias msstt="mysql.server start"
 
 ## postgre ##
 ## http://ossfan.net/manage/postgresql-11.html ##
-alias pgstt="pg_ctl -D /usr/local/var/postgres start -w"
-alias pgstp="pg_ctl -D /usr/local/var/postgres stop -m fast"
+alias pgstt="pg_ctl start -w"
+alias pgstp="pg_ctl stop -m fast"
 
 ## appache ##
 alias apstt="apachectl start"
@@ -260,8 +259,10 @@ alias gtree='git log --oneline --graph --decorate --all --format="%C(cyan bold)%
 alias dr="direnv reload"
 
 
-## peco ls-cd
+## peco ##
 alias pls="peco-lscd"
+alias poi="peco-show-open-issue"
+
 
 
 #############################################
@@ -337,6 +338,13 @@ fi
 #############################################
 set _Z_DATA="$HOME/.zsh.d"
 source ~/.zsh.d/z/z.sh
+
+
+
+#############################################
+# postgres
+#############################################
+export PGDATA="/usr/local/var/postgres"
 
 
 
