@@ -404,6 +404,11 @@ NeoBundleLazy 'slim-template/vim-slim', {
 \   'autoload': { 'filetypes': ['slim'] }
 \ }
 
+" Vueのシンタックス
+NeoBundleLazy 'posva/vim-vue', {
+\   'autoload': { 'filetypes': ['vue'] }
+\ }
+
 " Failler
 " ファイル検索を便利に
 NeoBundle 'Shougo/unite.vim'
