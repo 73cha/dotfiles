@@ -308,10 +308,9 @@ NeoBundleFetch 'Shougo/neobundle.vim'
 
 " HTML/CSS
 NeoBundleLazy 'mattn/emmet-vim', {
-\   'autoload': { 'filetypes': ['html', 'slim', 'eruby', 'css', 'scss', 'sass', 'php'] }
+\   'autoload': { 'filetypes': ['html', 'slim', 'eruby', 'css', 'scss', 'sass', 'php', 'styl', 'jade'] }
 \ }
 
-" Utillity
 " テキストオブジェクトの拡張
 NeoBundle 'tpope/vim-surround'
 
@@ -344,9 +343,8 @@ if has('conceal')
 endif
 
 " 記号のペアを自動挿入
-NeoBundle 'jiangmiao/auto-pairs'
+" NeoBundle 'jiangmiao/auto-pairs'
 
-" Shell
 " Vimからshellを使えるようにする
 NeoBundleLazy 'Shougo/vimshell', {
 \   'autoload' : { 'commands' : [ 'VimShell' ] },
@@ -363,7 +361,6 @@ NeoBundle 'Shougo/vimproc.vim', {
 \    },
 \ }
 
-" Syntax
 " CSS3のシンタックス
 NeoBundleLazy 'hail2u/vim-css3-syntax', {
 \   'autoload': { 'filetypes': ['css', 'scss', 'sass'] }
@@ -377,6 +374,11 @@ NeoBundleLazy 'cakebaker/scss-syntax.vim', {
 " HTML5のシンタックス
 NeoBundleLazy 'othree/html5.vim', {
 \   'autoload': { 'filetypes': ['html', 'slim', 'php'] }
+\ }
+
+" Stylusのシンタックス
+NeoBundleLazy 'wavded/vim-stylus', {
+\   'autoload': { 'filetypes': ['styl'] }
 \ }
 
 " Javascriptのシンタックス
@@ -404,12 +406,16 @@ NeoBundleLazy 'slim-template/vim-slim', {
 \   'autoload': { 'filetypes': ['slim'] }
 \ }
 
+" Jadeのシンタックス
+NeoBundleLazy 'digitaltoad/vim-jade', {
+\   'autoload': { 'filetypes': ['jade'] }
+\ }
+
 " Vueのシンタックス
 NeoBundleLazy 'posva/vim-vue', {
 \   'autoload': { 'filetypes': ['vue'] }
 \ }
 
-" Failler
 " ファイル検索を便利に
 NeoBundle 'Shougo/unite.vim'
 
@@ -482,7 +488,7 @@ NeoBundleLazy 'szw/vim-tags', {
 \ }
 
 NeoBundleLazy 'tpope/vim-rails', {
-\   'autoload': { 'filetypes': ['ruby', 'slim', 'scss'] }
+\   'autoload': { 'filetypes': ['ruby', 'slim', 'scss', 'sass', 'eruby'] }
 \ }
 
 " unite-rails
