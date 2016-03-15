@@ -5,6 +5,7 @@
 ########################################
 # 環境変数
 export LANG=ja_JP.UTF-8
+export EDITOR=vim
 
 
 # 色を使用出来るようにする
@@ -245,13 +246,10 @@ alias surl="~/project/api/google_api/sh/url_shortener.sh"
 
 ## git ##
 alias gs="git status"
-alias gst="git stash save"
-alias grf="git reflog"
-alias gmv="git mv"
-alias grm="git rm"
 alias gc="git checkout"
 alias gcb="git checkout -b"
 alias gfp="git fetch --prune"
+alias gl="git log"
 alias gtree='git log --oneline --graph --decorate --all --format="%C(cyan bold)%an%Creset %C(yellow)%h%Creset %C(magenta reverse)%d%Creset %s"'
 
 
@@ -262,6 +260,10 @@ alias dr="direnv reload"
 ## peco ##
 alias pls="peco-lscd"
 alias poi="peco-show-open-issue"
+
+
+## tmux ##
+alias ta="tmux a"
 
 
 
