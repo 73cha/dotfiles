@@ -251,6 +251,9 @@ alias gcb="git checkout -b"
 alias gfp="git fetch --prune"
 alias gl="git log"
 alias gtree='git log --oneline --graph --decorate --all --format="%C(cyan bold)%an%Creset %C(yellow)%h%Creset %C(magenta reverse)%d%Creset %s"'
+alias gbd="git branch -D"
+alias gpdev='git pull --rebase origin develop'
+alias grdev="git rebase develop"
 
 
 ## direnv ##
