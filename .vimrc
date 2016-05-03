@@ -940,7 +940,7 @@ vmap <silent> sr :Entity2HtmlString<cr>
 " neosnippet
 " ---------------------------------------------------------------------------------
 " Plugin key-mappings.
-imap <C-k>     <Plug>(neosnippet_expand_or_jump)
+imap <C-o>     <Plug>(neosnippet_expand_or_jump)
 smap <C-k>     <Plug>(neosnippet_expand_or_jump)
 xmap <C-k>     <Plug>(neosnippet_expand_target)
 
