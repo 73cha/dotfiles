@@ -416,6 +416,20 @@ NeoBundleLazy 'posva/vim-vue', {
 \   'autoload': { 'filetypes': ['vue'] }
 \ }
 
+" Reactシンタックス
+NeoBundleLazy 'pangloss/vim-javascript', {
+\   'autoload': { 'filetypes': ['.js', '.jsx'] }
+\ }
+
+NeoBundleLazy 'mxw/vim-jsx', {
+\   'autoload': { 'filetypes': ['.js', '.jsx'] }
+\ }
+
+" Riotシンタックス
+NeoBundleLazy 'ryym/vim-riot', {
+\   'autoload': { 'filetypes': ['.tag', '.html'] }
+\ }
+
 " ファイル検索を便利に
 NeoBundle 'Shougo/unite.vim'
 
@@ -437,6 +451,7 @@ NeoBundle 'Shougo/neomru.vim'
 " Statusline
 " ステータスラインをかっこ良く
 NeoBundle 'bling/vim-airline'
+
 " gitのブランチ名を表示
 NeoBundle 'itchyny/vim-gitbranch'
 
@@ -477,7 +492,7 @@ endif
 
 " ReFeをvimから使えるようにする
 " `gem install refe2` でgemもインストール
-NeoBundle 'thinca/vim-ref'
+" NeoBundle 'thinca/vim-ref'
 
 " vimからrubocopで構文チェック出来るようにする
 " `gem install rubocop` でgemもインストール
@@ -487,22 +502,23 @@ NeoBundle 'thinca/vim-ref'
 
 " ctags
 " `brew install ctags` でシステムの最新のctagsを入れる
-NeoBundleLazy 'szw/vim-tags', {
-\   'autoload': { 'mappings': ['<C-]>'] }
-\ }
+" NeoBundleLazy 'szw/vim-tags', {
+" \   'autoload': { 'mappings': ['<C-]>'] }
+" \ }
 
-NeoBundleLazy 'tpope/vim-rails', {
-\   'autoload': { 'filetypes': ['ruby', 'slim', 'scss', 'sass', 'eruby'] }
-\ }
+" NeoBundleLazy 'tpope/vim-rails', {
+" \   'autoload': { 'filetypes': ['ruby', 'slim', 'scss', 'sass', 'eruby'] }
+" \ }
 
 " unite-rails
-NeoBundleLazy 'basyura/unite-rails', {
-\   'depends': 'Shougo/unite.vim',
-\   'autoload': { 'filetypes': ['ruby', 'slim', 'scss'] }
-\ }
+" NeoBundleLazy 'basyura/unite-rails', {
+" \   'depends': 'Shougo/unite.vim',
+" \   'autoload': { 'filetypes': ['ruby', 'slim', 'scss'] }
+" \ }
 
 " HTML上の記号を実体参照に変換する
 NeoBundle 'inotom/str2htmlentity'
+
 
 
 " ---------------------------------------------------------------------------------
@@ -554,6 +570,13 @@ nmap <Space>u [unite]
 " ---------------------------------------------------------------------------------
 nnoremap [comb] <Nop>
 nmap <Space>c [comb]
+
+
+" ---------------------------------------------------------------------------------
+" postcss-sorting
+" ---------------------------------------------------------------------------------
+nnoremap [postcss-sorting] <Nop>
+nmap <Space>sc [postcss-sorting]
 
 
 " ---------------------------------------------------------------------------------
@@ -703,6 +726,12 @@ let g:airline#extensions#tabline#left_alt_sep = '⮀'
 " CSSComb
 " ---------------------------------------------------------------------------------
 nnoremap <silent> [comb] :<C-u>CSScomb<CR>
+
+
+" ---------------------------------------------------------------------------------
+" postcss-sorting 
+" ---------------------------------------------------------------------------------
+nmap <silent> [psotcss-sorting] :<C-u>CSSSorting<CR>
 
 
 " ---------------------------------------------------------------------------------
@@ -967,5 +996,3 @@ colorscheme monokai
 " colorscheme jellybeans
 " colorscheme iceberg
 " colorscheme railscasts
-
-
