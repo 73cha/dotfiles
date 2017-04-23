@@ -279,6 +279,8 @@ augroup END
 call ZenkakuSpace()
 endif
 
+" Riotシンタックス色付け
+au BufRead,BufNewFile *.tag :set filetype=html
 
 " NeoBundleの設定 
 " ---------------------------------------------------------------------------------
@@ -381,11 +383,6 @@ NeoBundleLazy 'wavded/vim-stylus', {
 \   'autoload': { 'filetypes': ['styl'] }
 \ }
 
-" Javascriptのシンタックス
-NeoBundleLazy 'pangloss/vim-javascript', {
-\   'autoload': { 'filetypes': ['javascript'] }
-\ }
-
 " Coffeescriptのシンタックス
 NeoBundleLazy 'kchmck/vim-coffee-script', {
 \   'autoload': { 'filetypes': ['coffee'] }
@@ -416,18 +413,14 @@ NeoBundleLazy 'posva/vim-vue', {
 \   'autoload': { 'filetypes': ['vue'] }
 \ }
 
-" Reactシンタックス
+" Javascriptのシンタックス
 NeoBundleLazy 'pangloss/vim-javascript', {
-\   'autoload': { 'filetypes': ['.js', '.jsx'] }
+\   'autoload': { 'filetypes': ['javascript', '.jsx', '.tag'] }
 \ }
 
+" JSXシンタックス
 NeoBundleLazy 'mxw/vim-jsx', {
-\   'autoload': { 'filetypes': ['.js', '.jsx'] }
-\ }
-
-" Riotシンタックス
-NeoBundleLazy 'ryym/vim-riot', {
-\   'autoload': { 'filetypes': ['.tag', '.html'] }
+\   'autoload': { 'filetypes': ['javascript', '.jsx'] }
 \ }
 
 " ファイル検索を便利に
