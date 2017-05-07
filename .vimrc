@@ -345,7 +345,7 @@ if has('conceal')
 endif
 
 " 記号のペアを自動挿入
-" NeoBundle 'jiangmiao/auto-pairs'
+NeoBundle 'jiangmiao/auto-pairs'
 
 " Vimからshellを使えるようにする
 NeoBundleLazy 'Shougo/vimshell', {
@@ -375,12 +375,7 @@ NeoBundleLazy 'cakebaker/scss-syntax.vim', {
 
 " HTML5のシンタックス
 NeoBundleLazy 'othree/html5.vim', {
-\   'autoload': { 'filetypes': ['html', 'slim', 'php'] }
-\ }
-
-" Stylusのシンタックス
-NeoBundleLazy 'wavded/vim-stylus', {
-\   'autoload': { 'filetypes': ['styl'] }
+\   'autoload': { 'filetypes': ['html', 'php', 'eruby'] }
 \ }
 
 " Coffeescriptのシンタックス
@@ -408,19 +403,14 @@ NeoBundleLazy 'digitaltoad/vim-jade', {
 \   'autoload': { 'filetypes': ['jade'] }
 \ }
 
-" Vueのシンタックス
-NeoBundleLazy 'posva/vim-vue', {
-\   'autoload': { 'filetypes': ['vue'] }
-\ }
-
 " Javascriptのシンタックス
 NeoBundleLazy 'pangloss/vim-javascript', {
-\   'autoload': { 'filetypes': ['javascript', '.jsx', '.tag'] }
+\   'autoload': { 'filetypes': ['javascript'] }
 \ }
 
 " JSXシンタックス
 NeoBundleLazy 'mxw/vim-jsx', {
-\   'autoload': { 'filetypes': ['javascript', '.jsx'] }
+\   'autoload': { 'filetypes': ['javascript'] }
 \ }
 
 " ファイル検索を便利に
@@ -483,35 +473,8 @@ if has('lua')
   \ }
 endif
 
-" ReFeをvimから使えるようにする
-" `gem install refe2` でgemもインストール
-" NeoBundle 'thinca/vim-ref'
-
-" vimからrubocopで構文チェック出来るようにする
-" `gem install rubocop` でgemもインストール
-" NeoBundleLazy 'scrooloose/syntastic', {
-" \   'autoload': { 'filetypes': ['ruby', 'scss', 'sass'] }
-" \ }
-
-" ctags
-" `brew install ctags` でシステムの最新のctagsを入れる
-" NeoBundleLazy 'szw/vim-tags', {
-" \   'autoload': { 'mappings': ['<C-]>'] }
-" \ }
-
-" NeoBundleLazy 'tpope/vim-rails', {
-" \   'autoload': { 'filetypes': ['ruby', 'slim', 'scss', 'sass', 'eruby'] }
-" \ }
-
-" unite-rails
-" NeoBundleLazy 'basyura/unite-rails', {
-" \   'depends': 'Shougo/unite.vim',
-" \   'autoload': { 'filetypes': ['ruby', 'slim', 'scss'] }
-" \ }
-
 " HTML上の記号を実体参照に変換する
 NeoBundle 'inotom/str2htmlentity'
-
 
 
 " ---------------------------------------------------------------------------------
@@ -539,7 +502,6 @@ endif
 call neobundle#end()
 
 NeoBundleCheck " インストールチェック
-
 
 
 " ---------------------------------------------------------------------------------
@@ -856,15 +818,6 @@ endfor
 
 
 " ---------------------------------------------------------------------------------
-" rsense
-" ---------------------------------------------------------------------------------
-" http://portalshit.net/2012/09/12/how-to-setup-rsense-with-vim
-" http://alice345.hatenablog.com/entry/2014/01/03/130053
-let g:rsenseUseOmniFunc = 1
-let g:rsenseHome = '/usr/local/Cellar/rsense/0.3/libexec'
-
-
-" ---------------------------------------------------------------------------------
 " neocomplete
 " ---------------------------------------------------------------------------------
 let g:neocomplete#enable_at_startup               = 1
@@ -883,72 +836,6 @@ if !exists('g:neocomplete#force_omni_input_patterns')
   let g:neocomplete#force_omni_input_patterns = {}
 endif
 let g:neocomplete#force_omni_input_patterns.ruby  = '[^. *\t]\.\w*\|\h\w*::'
-
-
-" ---------------------------------------------------------------------------------
-" syntastic
-" ---------------------------------------------------------------------------------
-" http://qiita.com/yuku_t/items/0ac33cea18e10f14e185
-" syntastic_mode_map は 'active' もしくは 'passive' を指定します。
-" 'active' だとバッファを保存するたびにsyntasticが走り、'passive' の場合は :SyntasticCheck 実行時に走ります。
-" 'active_filetypes' は保存の度にsyntasticを走らせるファイルタイプを指定します。
-" ２つをあわせると、基本的にsyntasticは走らせないけど、rubyのときだけは自動的に走らせる、という設定になります。
-" let g:syntastic_mode_map = { 'mode': 'passive', 'active_filetypes': ['ruby', 'scss'] }
-" let g:syntastic_ruby_checkers = ['rubocop']
-" let g:syntastic_scss_checkers = ['scss_lint']
-
-
-" ---------------------------------------------------------------------------------
-" ctags
-" ---------------------------------------------------------------------------------
-" http://k0kubun.hatenablog.com/entry/2013/11/02/103400
-let g:vim_tags_project_tags_command = "/usr/local/bin/ctags -R {OPTIONS} {DIRECTORY} 2>/dev/null"
-let g:vim_tags_gems_tags_command = "/usr/local/bin/ctags -R {OPTIONS} `bundle show --paths` 2>/dev/null"
-
-
-" ---------------------------------------------------------------------------------
-" vim-rails
-" ---------------------------------------------------------------------------------
-" http://qiita.com/alpaca_taichou/items/ab2ad83ddbaf2f6ce7fb
-" https://gist.github.com/alpaca-tc/4521467
-let g:rails_default_file='config/database.yml'
-let g:rails_level = 4
-let g:rails_mappings=1
-let g:rails_modelines=0
-" let g:rails_some_option = 1
-" let g:rails_statusline = 1
-" let g:rails_subversion=0
-" let g:rails_syntax = 1
-" let g:rails_url='http://localhost:8080'
-" let g:rails_ctags_arguments='--languages=-javascript'
-
-function! s:setup_rails_setting()
-  nnoremap <buffer><Space>r :R<CR>
-  nnoremap <buffer><Space>a :A<CR>
-  nnoremap <buffer><Space>m :Rmodel<Space>
-  nnoremap <buffer><Space>cc :Rcontroller<Space>
-  nnoremap <buffer><Space>v :Rview<Space>
-  nnoremap <buffer><Space>p :Rpreview<CR>
-
-  nnoremap <buffer><C-H><C-H><C-H>  :<C-U>Unite rails/view<CR>
-  nnoremap <buffer><C-H><C-H>       :<C-U>Unite rails/model<CR>
-  nnoremap <buffer><C-H>            :<C-U>Unite rails/controller<CR>
-
-  nnoremap <buffer><C-H>c           :<C-U>Unite rails/config<CR>
-  nnoremap <buffer><C-H>s           :<C-U>Unite rails/spec<CR>
-  nnoremap <buffer><C-H>m           :<C-U>Unite rails/db -input=migrate<CR>
-  nnoremap <buffer><C-H>l           :<C-U>Unite rails/lib<CR>
-  nnoremap <buffer><expr><C-H>g     ':e '.b:rails_root.'/Gemfile<CR>'
-  nnoremap <buffer><expr><C-H>r     ':e '.b:rails_root.'/config/routes.rb<CR>'
-  nnoremap <buffer><expr><C-H>se    ':e '.b:rails_root.'/db/seeds.rb<CR>'
-  nnoremap <buffer><C-H>ra          :<C-U>Unite rails/rake<CR>
-  nnoremap <buffer><C-H>h           :<C-U>Unite rails/heroku<CR>
-endfunction
-
-augroup RailsDictSetting
-  autocmd!
-  autocmd User Rails call s:setup_rails_setting()
-augroup END
 
 
 " ---------------------------------------------------------------------------------
