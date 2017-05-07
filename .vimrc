@@ -96,14 +96,6 @@ set browsedir=buffer
 " ---------------------------------------------------------------------------------
 " キーマッピング
 " ---------------------------------------------------------------------------------
-" 閉じ補完
-" inoremap { {}<LEFT>
-" inoremap [ []<LEFT>
-" inoremap ( ()<LEFT>
-" inoremap ' ''<LEFT>
-" inoremap < <> <LEFT>
-" inoremap () () <LEFT>
-
 " 挿入モードでjjでモード終了
 inoremap <silent> jj <ESC>
 
@@ -112,7 +104,6 @@ inoremap <C-h> <Left>
 inoremap <C-j> <Down>
 inoremap <C-k> <Up>
 inoremap <C-l> <Right>
-
 
 " カーソル位置の単語を検索
 nnoremap <Space>/ *
@@ -410,7 +401,7 @@ NeoBundleLazy 'pangloss/vim-javascript', {
 
 " JSXシンタックス
 NeoBundleLazy 'mxw/vim-jsx', {
-\   'autoload': { 'filetypes': ['javascript'] }
+\   'autoload': { 'filetypes': ['javascript.jsx'] }
 \ }
 
 " ファイル検索を便利に
@@ -422,10 +413,6 @@ NeoBundleLazy 'Shougo/vimfiler', {
 \   'commands' : ['VimFilerTab', 'VimFiler', 'VimFilerExplorer', 'VimFilerBufferDir'],
 \   'explorer' : 1,
 \ }}
-
-" スニペット登録
-NeoBundle 'Shougo/neosnippet'
-NeoBundle 'Shougo/neosnippet-snippets'
 
 " Unite.vimでfile_mruするのに必要
 " http://jsapachehtml.hatenablog.com/entry/2014/03/14/135458
@@ -445,11 +432,6 @@ NeoBundle 'tomasr/molokai'
 NeoBundle 'jpo/vim-railscasts-theme'
 NeoBundle 'cocopon/iceberg.vim'
 NeoBundle 'nanotech/jellybeans.vim'
-
-" Vimjazz
-NeoBundleLazy 'supermomonga/jazzradio.vim', {
-\   'depends' : ['Shougo/unite.vim']
-\ }
 
 " EasyMotion
 NeoBundle 'Lokaltog/vim-easymotion'
@@ -477,31 +459,10 @@ endif
 " HTML上の記号を実体参照に変換する
 NeoBundle 'inotom/str2htmlentity'
 
-
-" ---------------------------------------------------------------------------------
-" Jazzradio.vim 
-" ---------------------------------------------------------------------------------
-if neobundle#tap('jazzradio.vim')
-    call neobundle#config({
-    \   'autoload' : {
-    \     'unite_sources' : [
-    \       'jazzradio'
-    \     ],
-    \     'commands' : [
-    \       'JazzradioUpdateChannels',
-    \       'JazzradioStop',
-    \       {
-    \         'name' : 'JazzradioPlay',
-    \         'complete' : 'customlist,jazzradio#channel_id_complete'
-    \       }
-    \     ],
-    \     'function_prefix' : 'jazzradio'
-    \   }
-    \ })
-endif
+" ALE - Async Lint Engine
+NeoBundle 'w0rp/ale'
 
 call neobundle#end()
-
 NeoBundleCheck " インストールチェック
 
 
@@ -510,7 +471,6 @@ NeoBundleCheck " インストールチェック
 " ---------------------------------------------------------------------------------
 " プラグインの設定を反映させるために、ファイルタイプを一旦offにして、プラグインのロード後にonにする。
 filetype plugin indent on
- 
 
 
 " プラグインのマッピングプレフィックス 
@@ -570,7 +530,7 @@ nmap <Space>t [indentline]
 let g:unite_enable_start_insert = 1 "インサートモードで開始
 let g:unite_source_history_yank_enable = 1 "ヒストリー/ヤンク機能を有効化
 " let g:unite_source_bookmark_directory = $HOME . '/.unite/bookmark' " bookmarkだけホームディレクトリに保存
-" call unite#custom_default_action('file', 'tabopen') " ファイルはタブで開くをデフォルトに
+call unite#custom_default_action('file', 'tabopen') " ファイルはタブで開くをデフォルトに
 
 " カレントディレクトリを表示
 nnoremap <silent> [unite]s :<C-u>UniteWithBufferDir -buffer-name=files file<CR>
@@ -651,6 +611,7 @@ let g:airline#extensions#tabline#tab_nr_type = 1 " 0でそのタブで開いて�
 
 let g:airline_section_b = '%{getcwd()}'
 let g:airline_section_c = '⭠ %{gitbranch#name()}'
+let g:airline_section_z = '%{ALEGetStatusLine()}'
 " let g:airline_section_b = '%t'
 
 let g:airline#extensions#tabline#fnamemod = ':t' " タブに表示する名前（fnamemodifyの第二引数）
@@ -675,7 +636,6 @@ let g:airline#extensions#tabline#left_alt_sep = '⮀'
 " let g:airline_symbols.linenr = '⭡'
 " let g:airline#extensions#branch#enabled = '⭠'
 " let g:airline_symbols.readonly = '⭤'
-
 
 
 " ---------------------------------------------------------------------------------
@@ -718,7 +678,6 @@ nnoremap <silent> [indentline] :<C-u>IndentLinesToggle<CR>
 " ---------------------------------------------------------------------------------
 " Vimfiler
 " ---------------------------------------------------------------------------------
-
 let g:vimfiler_safe_mode_by_default = 0 " セーフモードを無効にした状態で起動する
 let g:vimfiler_as_default_explorer = 1 " vimデフォルトのエクスプローラをvimfilerで置き換える
 let g:vimfiler_tree_opened_icon = "▼"
@@ -744,8 +703,6 @@ function! s:vimfiler_my_settings()
   " Qで隠す（バッファに残る）
   nmap <buffer> Q <Plug>(vimfiler_hide)
 endfunction
-
-
 
 
 " ---------------------------------------------------------------------------------
@@ -798,27 +755,6 @@ nmap ga <Plug>(EasyAlign)
 
 
 " ---------------------------------------------------------------------------------
-" Surround
-" ---------------------------------------------------------------------------------
-function! s:define_surround_mapping(key, mapping)
-  let var_name = 'surround_'.char2nr(a:key)
-  execute 'let b:' . var_name . ' = "' . a:mapping . '"'
-endfunction
-
-let dict = {
-          \ '(' : "(\r)",
-          \ '[' : "[\r]",
-          \ '<' : "<\r>",
-          \ '{' : "{ \r }",
-          \ '#':  "#{\r}",
-          \ }
-
-for [key, mapping] in items(dict)
-  call s:define_surround_mapping(key, mapping)
-endfor
-
-
-" ---------------------------------------------------------------------------------
 " neocomplete
 " ---------------------------------------------------------------------------------
 let g:neocomplete#enable_at_startup               = 1
@@ -847,26 +783,47 @@ vmap <silent> sr :Entity2HtmlString<cr>
 
 
 " ---------------------------------------------------------------------------------
-" neosnippet
+" ALE
 " ---------------------------------------------------------------------------------
-" Plugin key-mappings.
-imap <C-o>     <Plug>(neosnippet_expand_or_jump)
-smap <C-k>     <Plug>(neosnippet_expand_or_jump)
-xmap <C-k>     <Plug>(neosnippet_expand_target)
+let g:ale_linters = {
+\ 'html': ['HTMLHint'],
+\ 'css': ['stylelint'],
+\ 'javascript': ['eslint']
+\ }
 
-" SuperTab like snippets behavior.
-"imap <expr><TAB>
-" \ pumvisible() ? "\<C-n>" :
-" \ neosnippet#expandable_or_jumpable() ?
-" \    "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
-smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
-\ "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
+" シンボルカラムを出しっぱなしにする
+" let g:ale_sign_column_always = 1
 
-" For conceal markers.
-if has('conceal')
-  set conceallevel=2 concealcursor=niv
-endif
+" エラーのシンボルを変更
+let g:ale_sign_error = '✘'
 
+" 警告のシンボルを変更
+let g:ale_sign_warning = '⚠'
+
+" 保存時にチェック
+let g:ale_lint_on_save = 1
+
+" 入力時にはチェックしない
+let g:ale_lint_on_text_changed = 0
+
+" ファイルオープン時にチェックしたくない
+let g:ale_lint_on_enter = 0
+
+" ステータスラインのフォーマットを変更
+let g:ale_statusline_format = ['✘  %d', '⚠  %d', '✔ ']
+
+" エラーと警告をロケーションリストに表示しない
+let g:ale_set_loclist = 0
+
+" エラーと警告をクイックフィックスに表示する
+let g:ale_set_quickfix = 1
+
+" エラーと警告がなくなっても開いたままにする
+" let g:ale_open_list = 1
+" let g:ale_keep_list_window_open = 1
+
+nmap <silent> <C-k> <Plug>(ale_previous_wrap)
+nmap <silent> <C-j> <Plug>(ale_next_wrap)
 
 " ---------------------------------------------------------------------------------
 " カラースキームの設定 
