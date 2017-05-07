@@ -434,6 +434,7 @@ NeoBundle 'Shougo/neomru.vim'
 " Statusline
 " ステータスラインをかっこ良く
 NeoBundle 'bling/vim-airline'
+NeoBundle 'vim-airline/vim-airline-themes'
 
 " gitのブランチ名を表示
 NeoBundle 'itchyny/vim-gitbranch'
