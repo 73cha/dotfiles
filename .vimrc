@@ -404,6 +404,11 @@ NeoBundleLazy 'mxw/vim-jsx', {
 \   'autoload': { 'filetypes': ['javascript.jsx'] }
 \ }
 
+" PostCSSシンタックス
+NeoBundleLazy 'alexlafroscia/postcss-syntax.vim', {
+\   'autoload': { 'filetypes': ['css'] }
+\ }
+
 " ファイル検索を便利に
 NeoBundle 'Shougo/unite.vim'
 
@@ -473,6 +478,15 @@ augroup VimCSS3Syntax
   autocmd!
 
   autocmd FileType css setlocal iskeyword+=-
+augroup END
+
+" ---------------------------------------------------------------------------------
+" PostCSSシンタックスの設定
+" ---------------------------------------------------------------------------------
+augroup PostCSSSyntax
+  autocmd!
+
+  autocmd FileType css set iskeyword+=-
 augroup END
 
 " ---------------------------------------------------------------------------------
