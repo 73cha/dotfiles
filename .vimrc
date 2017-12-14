@@ -336,7 +336,7 @@ if has('conceal')
 endif
 
 " 記号のペアを自動挿入
-NeoBundle 'jiangmiao/auto-pairs'
+" NeoBundle 'jiangmiao/auto-pairs'
 
 " Vimからshellを使えるようにする
 NeoBundleLazy 'Shougo/vimshell', {
@@ -391,7 +391,7 @@ NeoBundleLazy 'slim-template/vim-slim', {
 
 " Jadeのシンタックス
 NeoBundleLazy 'digitaltoad/vim-jade', {
-\   'autoload': { 'filetypes': ['jade'] }
+\   'autoload': { 'filetypes': ['jade', 'pug'] }
 \ }
 
 " Javascriptのシンタックス
@@ -465,6 +465,15 @@ NeoBundle 'w0rp/ale'
 call neobundle#end()
 NeoBundleCheck " インストールチェック
 
+" ---------------------------------------------------------------------------------
+" CSS3シンタックスの設定
+" https://github.com/hail2u/vim-css3-syntax#notes
+" ---------------------------------------------------------------------------------
+augroup VimCSS3Syntax
+  autocmd!
+
+  autocmd FileType css setlocal iskeyword+=-
+augroup END
 
 " ---------------------------------------------------------------------------------
 " ファイルタイプ設定(on)
@@ -786,7 +795,7 @@ vmap <silent> sr :Entity2HtmlString<cr>
 " ALE
 " ---------------------------------------------------------------------------------
 let g:ale_linters = {
-\ 'html': ['HTMLHint'],
+\ 'html': ['htmlhint'],
 \ 'css': ['stylelint'],
 \ 'javascript': ['eslint']
 \ }
