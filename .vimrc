@@ -270,8 +270,6 @@ augroup END
 call ZenkakuSpace()
 endif
 
-" Riotシンタックス色付け
-au BufRead,BufNewFile *.tag :set filetype=html
 
 " NeoBundleの設定 
 " ---------------------------------------------------------------------------------
@@ -487,6 +485,15 @@ augroup PostCSSSyntax
   autocmd!
 
   autocmd FileType css set iskeyword+=-
+augroup END
+
+" ---------------------------------------------------------------------------------
+" Riotシンタックス色付け
+" ---------------------------------------------------------------------------------
+augroup RiotTag
+  autocmd!
+
+  autocmd BufRead,BufNewFile *.tag :set filetype=html
 augroup END
 
 " ---------------------------------------------------------------------------------
