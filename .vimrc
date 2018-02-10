@@ -305,23 +305,14 @@ NeoBundleLazy 'mattn/emmet-vim', {
 " テキストオブジェクトの拡張
 NeoBundle 'tpope/vim-surround'
 
-" Ruby向けにendを自動挿入してくれる
-NeoBundleLazy 'tpope/vim-endwise', {
-\   'autoload' : { 'insert': 1 }
-\ }
-
 " コメントON/OFFを手軽に実行
-NeoBundleLazy 'tomtom/tcomment_vim', {
-\   'autoload': { 'mappings': ['<c-_><c-_>'] }
-\ }
+NeoBundleLazy 'tomtom/tcomment_vim'
 
 " http://d.hatena.ne.jp/thinca/20130131/1359567419
 NeoBundle 'kana/vim-submode' 
 
 " SublimeTextのcmd+dと同じ動きをする
-NeoBundleLazy 'terryma/vim-multiple-cursors', {
-\   'autoload': { 'mappings': ['<C-n>', '<C-p>'] }
-\ }
+NeoBundleLazy 'terryma/vim-multiple-cursors'
 
 " コードのインデントを可視化
 if has('conceal')
@@ -332,15 +323,6 @@ if has('conceal')
   \   }
   \ }
 endif
-
-" 記号のペアを自動挿入
-" NeoBundle 'jiangmiao/auto-pairs'
-
-" Vimからshellを使えるようにする
-NeoBundleLazy 'Shougo/vimshell', {
-\   'autoload' : { 'commands' : [ 'VimShell' ] },
-\   'depends': [ 'Shougo/vimproc' ],
-\ }
 
 " Asynchronous
 NeoBundle 'Shougo/vimproc.vim', {
@@ -377,11 +359,6 @@ NeoBundleLazy 'vim-ruby/vim-ruby', {
 \   'autoload': { 'filetypes': ['ruby'] }
 \ }
 
-" ログファイルを色づけしてくれる
-NeoBundleLazy 'vim-scripts/AnsiEsc.vim', {
-\   'autoload': { 'commands': ['AnsiEsc'] }
-\ }
-
 " Slimのシンタックス
 NeoBundleLazy 'slim-template/vim-slim', {
 \   'autoload': { 'filetypes': ['slim'] }
@@ -392,8 +369,7 @@ NeoBundleLazy 'digitaltoad/vim-jade', {
 \   'autoload': { 'filetypes': ['jade', 'pug'] }
 \ }
 
-" Javascriptのシンタックス
-NeoBundleLazy 'pangloss/vim-javascript', {
+NeoBundleLazy 'othree/yajs.vim', {
 \   'autoload': { 'filetypes': ['javascript'] }
 \ }
 
@@ -440,15 +416,7 @@ NeoBundle 'nanotech/jellybeans.vim'
 NeoBundle 'Lokaltog/vim-easymotion'
 
 " Easyaliign
-NeoBundleLazy 'junegunn/vim-easy-align', {
-\   'autoload': { 'commands': ['EasyAlign'] }
-\ }
-
-" CSScomb
-" `npm install -g csscomb` でnodeのモジュールをインストール
-NeoBundleLazy 'csscomb/vim-csscomb', {
-\   'autoload': { 'commands': ['CSScomb'] }
-\ }
+NeoBundleLazy 'junegunn/vim-easy-align'
 
 " neocomplete
 " luaオプション付きでvimをインストールする必要がある
@@ -465,8 +433,15 @@ NeoBundle 'inotom/str2htmlentity'
 " ALE - Async Lint Engine
 NeoBundle 'w0rp/ale'
 
+" prettier
+NeoBundle 'prettier/vim-prettier', {
+\   'do': 'npm install',
+\   'for': ['javascript', 'typescript', 'css', 'less', 'scss', 'json', 'graphql', 'markdown', 'vue']
+\ }
+
 call neobundle#end()
 NeoBundleCheck " インストールチェック
+
 
 " ---------------------------------------------------------------------------------
 " CSS3シンタックスの設定
@@ -496,6 +471,27 @@ augroup RiotTag
   autocmd BufRead,BufNewFile *.tag :set filetype=html
 augroup END
 
+
+" ---------------------------------------------------------------------------------
+" HTML,PHPを保存したら自動で整形
+" ---------------------------------------------------------------------------------
+function! s:pretty_html()
+  let cursor = getpos(".")
+
+  :normal gg=G
+
+  call setpos(".", cursor)
+
+  unlet cursor
+endfunction
+
+augroup HTML
+  autocmd!
+
+  autocmd BufWritePre *.html,*.php call <SID>pretty_html()
+augroup END
+
+
 " ---------------------------------------------------------------------------------
 " ファイルタイプ設定(on)
 " ---------------------------------------------------------------------------------
@@ -512,38 +508,10 @@ nmap <Space>u [unite]
 
 
 " ---------------------------------------------------------------------------------
-" CSSComb
-" ---------------------------------------------------------------------------------
-nnoremap [comb] <Nop>
-nmap <Space>c [comb]
-
-
-" ---------------------------------------------------------------------------------
-" postcss-sorting
-" ---------------------------------------------------------------------------------
-nnoremap [postcss-sorting] <Nop>
-nmap <Space>sc [postcss-sorting]
-
-
-" ---------------------------------------------------------------------------------
-" VimShell
-" ---------------------------------------------------------------------------------
-nnoremap [shell] <Nop>
-nmap <Space>s [shell]
-
-
-" ---------------------------------------------------------------------------------
 " VimFiler
 " ---------------------------------------------------------------------------------
 nnoremap [filer] <Nop>
 nmap <Space>f [filer]
-
-
-" ---------------------------------------------------------------------------------
-" AnsiEsc
-" ---------------------------------------------------------------------------------
-nnoremap [ansiesc] <Nop>
-nmap <Space>n [ansiesc]
 
 
 " ---------------------------------------------------------------------------------
@@ -669,34 +637,10 @@ let g:airline#extensions#tabline#left_alt_sep = '⮀'
 
 
 " ---------------------------------------------------------------------------------
-" CSSComb
-" ---------------------------------------------------------------------------------
-nnoremap <silent> [comb] :<C-u>CSScomb<CR>
-
-
-" ---------------------------------------------------------------------------------
-" postcss-sorting 
-" ---------------------------------------------------------------------------------
-nmap <silent> [psotcss-sorting] :<C-u>CSSSorting<CR>
-
-
-" ---------------------------------------------------------------------------------
-" VimShell
-" ---------------------------------------------------------------------------------
-nnoremap <silent> [shell] :<C-u>VimShell<CR>
-
-
-" ---------------------------------------------------------------------------------
 " Emmet 
 " ---------------------------------------------------------------------------------
 " let g:user_emmet_mode = 'iv' " Emmetをinsert, visualモードだけ実行
 let g:user_emmet_expandabbr_key = '<c-e>' " 展開を<CTRL>+eに
-
-
-" ---------------------------------------------------------------------------------
-" AnsiEsc
-" ---------------------------------------------------------------------------------
-nnoremap <silent> [ansiesc] :<C-u>AnsiEsc<CR>
 
 
 " ---------------------------------------------------------------------------------
@@ -810,6 +754,19 @@ let g:neocomplete#force_omni_input_patterns.ruby  = '[^. *\t]\.\w*\|\h\w*::'
 " ---------------------------------------------------------------------------------
 vmap <silent> sx :Str2HtmlEntity<cr>
 vmap <silent> sr :Entity2HtmlString<cr>
+
+
+" ---------------------------------------------------------------------------------
+" Prettier
+" ---------------------------------------------------------------------------------
+let g:prettier#autoformat = 0
+let g:prettier#quickfix_enabled = 0
+let g:prettier#exec_cmd_async = 1 " require vim8+
+
+augroup Prettier
+  autocmd!
+  autocmd BufWritePre *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql,*.md,*.vue PrettierAsync
+augroup END
 
 
 " ---------------------------------------------------------------------------------
