@@ -1,0 +1,194 @@
+[[plugins]]
+repo = 'Shougo/dein.vim'
+
+[[plugins]]
+repo = 'Shougo/vimproc.vim'
+hook_post_update = '''
+  if dein#util#_is_windows()
+    let cmd = 'tools\\update-dll-mingw'
+  elseif dein#util#_is_cygwin()
+    let cmd = 'make -f make_cygwin.mak'
+  elseif executable('gmake')
+    let cmd = 'gmake'
+  else
+    let cmd = 'make'
+  endif
+  let g:dein#plugin.build = cmd
+'''
+
+
+[[plugins]]
+repo = 'roxma/nvim-yarp'
+
+[[plugins]]
+repo = 'roxma/vim-hug-neovim-rpc'
+
+
+
+
+# TODO: Shougo/defx.nvimが出来たらdeniteに乗り換え
+[[plugins]]
+repo = 'Shougo/unite.vim'
+hook_add = '''
+  nnoremap [unite] <Nop>
+  nmap <Space>u [unite]
+
+  let g:unite_enable_start_insert = 1 "インサートモードで開始
+  let g:unite_source_history_yank_enable = 1 "ヒストリー/ヤンク機能を有効化
+  " let g:unite_source_bookmark_directory = $HOME . '/.unite/bookmark' " bookmarkだけホームディレクトリに保存
+  call unite#custom_default_action('file', 'tabopen') " ファイルはタブで開くをデフォルトに
+
+  " カレントディレクトリを表示
+  nnoremap <silent> [unite]s :<C-u>UniteWithBufferDir -buffer-name=files file<CR>
+
+  " バッファと最近開いたファイル一覧を表示
+  nnoremap <silent> [unite]f :<C-u>Unite<Space>buffer file_mru<CR>
+
+  " 最近開いたディレクトリを表示
+  nnoremap <silent> [unite]d :<C-u>Unite<Space>directory_mru<CR>
+
+  " バッファを表示
+  nnoremap <silent> [unite]b :<C-u>Unite<Space>buffer<CR>
+
+  " レジストリを表示
+  nnoremap <silent> [unite]r :<C-u>Unite<Space>register<CR>
+
+  " ヒストリ/ヤンクを表示
+  nnoremap <silent> [unite]h :<C-u>Unite<Space>history/yank<CR>
+
+  " ファイルの新規作成
+  " そのディレクトリに存在しない名前を入力すると`file/new`が候補にでてくる
+  nnoremap <silent> [unite]n :<C-u>UniteWithBufferDir file file/new -buffer-name=file<CR>
+
+  "ブックマーク一覧
+  nnoremap <silent> [unite]c :<C-u>Unite bookmark<CR>
+
+  "ブックマークに追加
+  nnoremap <silent> [unite]a :<C-u>UniteBookmarkAdd<CR>
+
+  " ENTERキーでfile_rec:!
+  nnoremap <silent> [unite]<CR> :<C-u>Unite<Space>file_rec:!<CR>
+
+  " unite.vimを開いている間のキーマッピング
+  augroup unite 
+    autocmd!
+    autocmd FileType unite call s:unite_my_settings()
+  augroup END
+
+  function! s:unite_my_settings()
+    " ESCでuniteを終了
+    nmap <buffer> <ESC> <Plug>(unite_exit)
+
+    " 入力モードのときjjでノーマルモードに移動
+    imap <buffer> jj <Plug>(unite_insert_leave)
+
+    " 入力モードのときctrl+wでバックスラッシュも削除
+    imap <buffer> <C-w> <Plug>(unite_delete_backward_path)
+  endfunction
+'''
+
+
+[[plugins]]
+repo = 'Shougo/neomru.vim'
+
+
+[[plugins]]
+repo = 'bling/vim-airline'
+depends = ['vim-airline-themes']
+hook_add = '''
+  let g:airline#extensions#tabline#enabled = 1
+
+  " （タブが一個の場合）バッファのリストをタブラインに表示する機能をオフ
+  let g:airline#extensions#tabline#show_buffers = 0
+
+  " 0でそのタブで開いてるウィンドウ数、1で左のタブから連番
+  let g:airline#extensions#tabline#tab_nr_type = 1
+
+  let g:airline_section_b = '%{getcwd()}'
+  let g:airline_section_c = '⭠ %{gitbranch#name()}'
+  let g:airline_section_z = '%{ALEGetStatusLine()}'
+  " let g:airline_section_b = '%t'
+
+  " タブに表示する名前（fnamemodifyの第二引数）
+  let g:airline#extensions#tabline#fnamemod = ':t'
+
+  " airlineのカラーテーマ
+  let g:airline_theme='badwolf'
+  " let g:airline_theme='wombat'
+
+  " fancyテーマに切り替え
+  let g:Powerline_symbols = 'fancy'
+
+  " タブラインにもairlineを適用
+  let g:airline#extensions#tabline#enabled = 1
+
+  " ステータスラインの区切り文字を指定
+  let g:airline_left_sep = '⮀'
+  let g:airline_right_sep = '⮂'
+
+  " タブラインのクリ切り文字を指定
+  let g:airline#extensions#tabline#left_sep = '⮀'
+  let g:airline#extensions#tabline#left_alt_sep = '⮀'
+
+  " ステータスラインのbranchなどの絵文字を指定
+  " let g:airline_symbols.linenr = '⭡'
+  " let g:airline#extensions#branch#enabled = '⭠'
+  " let g:airline_symbols.readonly = '⭤'
+'''
+
+
+[[plugins]]
+repo = 'vim-airline/vim-airline-themes'
+
+
+# gitのブランチ名を表示
+[[plugins]]
+repo = 'itchyny/vim-gitbranch'
+
+
+[[plugins]]
+repo = 'w0rp/ale'
+hook_add = '''
+  let g:ale_linters = {
+  \ 'html': ['htmlhint'],
+  \ 'css': ['stylelint'],
+  \ 'javascript': ['eslint']
+  \ }
+
+  " let g:ale_sign_column_always = 1
+
+  " エラーのシンボルを変更
+  let g:ale_sign_error = '✘'
+
+  " 警告のシンボルを変更
+  let g:ale_sign_warning = '⚠'
+
+  " 保存時にチェック
+  let g:ale_lint_on_save = 1
+
+  " 入力時にはチェックしない
+  let g:ale_lint_on_text_changed = 0
+
+  " ファイルオープン時にチェックしたくない
+  let g:ale_lint_on_enter = 0
+
+  " ステータスラインのフォーマットを変更
+  let g:ale_statusline_format = ['✘  %d', '⚠  %d', '✔ ']
+
+  " エラーと警告をロケーションリストに表示しない
+  let g:ale_set_loclist = 0
+
+  " エラーと警告をクイックフィックスに表示する
+  let g:ale_set_quickfix = 1
+
+  " エラーと警告がなくなっても開いたままにする
+  " let g:ale_open_list = 1
+  " let g:ale_keep_list_window_open = 1
+
+  nmap <silent> <C-k> <Plug>(ale_previous_wrap)
+  nmap <silent> <C-j> <Plug>(ale_next_wrap)
+'''
+
+
+[[plugins]]
+repo = 'tpope/vim-surround'

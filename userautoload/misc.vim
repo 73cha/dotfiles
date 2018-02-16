@@ -37,3 +37,31 @@ augroup HTML
 
   autocmd BufWritePre *.html,*.php call <SID>pretty_html()
 augroup END
+
+
+" CSS3シンタックスハイライト
+" https://github.com/hail2u/vim-css3-syntax#notes
+" ---------------------------------------------------------------------------------
+augroup VimCSS3Syntax
+  autocmd!
+
+  autocmd FileType css setlocal iskeyword+=-
+augroup END
+
+
+" PostCSSシンタックスハイライト
+" ---------------------------------------------------------------------------------
+augroup PostCSSSyntax
+  autocmd!
+
+  autocmd FileType css set iskeyword+=-
+augroup END
+
+
+" Riotシンタックスハイライト
+" ---------------------------------------------------------------------------------
+augroup RiotTag
+  autocmd!
+
+  autocmd BufRead,BufNewFile *.tag :set filetype=html
+augroup END
