@@ -399,3 +399,5 @@ bindkey '^R' peco-history-selection
 function peco-show-open-issue() {
   ghi show -w $(ghi list --filter 'all' | peco)
 }
+
+export PATH="$HOME/.pyenv/shims:$PATH"

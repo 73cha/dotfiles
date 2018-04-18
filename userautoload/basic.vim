@@ -1,6 +1,8 @@
 " ---------------------------------------------------------------------------------
 " 基本設定
 " ---------------------------------------------------------------------------------
+" エンコーディングをUTF8に設定
+" set encoding=UTF-8
 
 " vi互換しない
 set nocompatible
@@ -15,8 +17,8 @@ set ttyfast
 set lazyredraw
 
 " フォントを指定(:h15はフォントサイズ)
-set guifont=RictyDiscord-Regular-Powerline:h15
-
+" set guifont=RictyDiscord-Regular-Powerline:h15
+" set guifont=Roboto\ Mono\ Nerd\ Font\ Complete:h15
 
 " フォーマット
 " ---------------------------------------------------------------------------------

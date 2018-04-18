@@ -35,7 +35,7 @@ endfunction
 augroup HTML
   autocmd!
 
-  autocmd BufWritePre *.html,*.php call <SID>pretty_html()
+  autocmd BufWritePre *.html call <SID>pretty_html()
 augroup END
 
 
@@ -64,4 +64,13 @@ augroup RiotTag
   autocmd!
 
   autocmd BufRead,BufNewFile *.tag :set filetype=html
+augroup END
+
+
+" TypeScriptシンタックスハイライト
+" ---------------------------------------------------------------------------------
+augroup TypeScript
+  autocmd!
+
+  autocmd BufRead,BufNewFile *.ts :set filetype=typescript
 augroup END

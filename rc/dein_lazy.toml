@@ -1,66 +1,91 @@
 [[plugins]]
-repo='Shougo/vimfiler.vim'
-on_cmd = ['VimFilerExplorer']
-hook_add = '''
-  nnoremap [filer] <Nop>
-  nmap <Space>f [filer]
+repo      = 'Shougo/neomru.vim'
+on_source = 'denite.nvim'
 
-  " セーフモードを無効にした状態で起動する
-  let g:vimfiler_safe_mode_by_default = 0 
+[[plugins]]
+repo      = 'Shougo/neoyank.vim'
+on_source = 'denite.nvim'
 
-  " vimデフォルトのエクスプローラをvimfilerで置き換える
-  let g:vimfiler_as_default_explorer = 1 
 
-  let g:vimfiler_tree_opened_icon = "▼"
-  let g:vimfiler_tree_closed_icon = "▷"
-  let g:vimfiler_readonly_file_icon = "⭤"
-  let g:vimfiler_ignore_pattern = '^\%(.git\|.idea|.DS_Store\)$'
+# deopleteの補完の設定引用元
+# https://muunyblue.github.io/520bae6649b42ff5a3c8c58b7fcfc5a9.html
+[[plugins]]
+repo     = 'Shougo/deoplete.nvim'
+on_i     = 1
+hook_source = '''
+  let g:deoplete#enable_at_startup = 1
+  let g:deoplete#enable_ignore_case = 1
+  let g:deoplete#enable_smart_case = 1
+  let g:deoplete#auto_complete_delay = 0
 
-  " 現在開いているバッファのディレクトリをNERDTree風に開く
-  nnoremap <silent> [filer]e :<C-u>VimFilerExplorer<CR>
+  " <TAB>: completion.
+  inoremap <silent><expr> <TAB>
+  \ pumvisible() ? "\<C-n>" :
+  \ <SID>check_back_space() ? "\<TAB>" :
+  \ deoplete#manual_complete()
 
-  "現在開いているバッファのディレクトリを開く
-  nnoremap <silent> [filer]q :<C-u>VimFilerBufferDir<CR>
+  function! s:check_back_space() abort "{{{
+    let col = col('.') - 1
+    return !col || getline('.')[col - 1]  =~ '\s'
+  endfunction"}}}
 
-  " vimfilerを開いている時のキーマッピング
-  augroup vimfiler
-    autocmd!
-    autocmd FileType vimfiler call s:vimfiler_my_settings()
-  augroup END
+  " <S-TAB>: completion back.
+  inoremap <expr><S-TAB>  pumvisible() ? "\<C-p>" : "\<C-h>"
 
-  function! s:vimfiler_my_settings()
-    " qで終了（バッファに残らない）
-    nmap <buffer> q <Plug>(vimfiler_exit)
-    " Qで隠す（バッファに残る）
-    nmap <buffer> Q <Plug>(vimfiler_hide)
-  endfunction
+  " <BS>: close popup and delete backword char.
+  inoremap <expr><BS> deoplete#smart_close_popup()."\<C-h>"
 '''
 
 
 [[plugins]]
-repo = 'prettier/vim-prettier'
-on_ft = ['javascript', 'typescript', 'css', 'less', 'scss', 'json', 'graphql', 'markdown', 'vue']
-hook_add = '''
+repo        = 'tiagofumo/vim-nerdtree-syntax-highlight'
+on_source   = ['nerdtree']
+hook_source = '''
+  let s:vue_nerdtree_syntax_color = '4fc08d'
+  let g:NERDTreeExtensionHighlightColor = {}
+  let g:NERDTreeExtensionHighlightColor['vue'] = s:vue_nerdtree_syntax_color
+'''
+
+[[plugins]]
+repo        = 'Xuyuanp/nerdtree-git-plugin'
+on_source   = ['nerdtree']
+hook_source = '''
+  let g:NERDTreeIndicatorMapCustom = {
+  \ "Modified": '● ',
+  \ "Staged": '+ ',
+  \ "Untracked": '▲ ',
+  \ "Renamed": '→ ',
+  \ "Unmerged": '═ ',
+  \ "Deleted": '☓ ',
+  \ "Dirty": '! ',
+  \ "Clean": '✓ ',
+  \ 'Ignored': '- ',
+  \ "Unknown": '? '
+  \ }
+'''
+
+
+[[plugins]]
+repo      = 'vim-airline/vim-airline-themes'
+on_source = ['vim-airline']
+
+
+[[plugins]]
+repo        = 'prettier/vim-prettier'
+on_ft       = ['javascript', 'typescript', 'less', 'scss', 'json', 'graphql', 'markdown', 'vue', 'css']
+build       = 'npm install'
+hook_source = '''
   let g:prettier#autoformat = 0
   let g:prettier#quickfix_enabled = 0
-  let g:prettier#exec_cmd_async = 1
 
   autocmd BufWritePre *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql,*.md,*.vue PrettierAsync
 '''
 
 
 [[plugins]]
-repo = 'Shougo/deoplete.nvim'
-hook_add = '''
-  let g:deoplete#enable_at_startup = 1
-'''
-on_i = 1
-
-
-[[plugins]]
-repo = 'Yggdroot/indentLine'
-if = '''has('conceal')'''
-on_cmd = ['IndentLinesReset', 'IndentLinesToggle']
+repo     = 'Yggdroot/indentLine'
+if       = '''has('conceal')'''
+on_cmd   = ['IndentLinesToggle']
 hook_add = '''
   nnoremap [indentline] <Nop>
   nmap <Space>t [indentline]
@@ -69,20 +94,36 @@ hook_add = '''
 
 
 [[plugins]]
-repo = 'tomtom/tcomment_vim'
+repo   = 'tomtom/tcomment_vim'
 on_map = ['<C-_><C-_>']
 
 
+# neosnipetの補完の設定引用元
+# https://muunyblue.github.io/520bae6649b42ff5a3c8c58b7fcfc5a9.html
 [[plugins]]
-repo = 'Lokaltog/vim-easymotion'
-on_map = ['<Plug>(easymotion-']
-hook_add = '''
-  " 最初にマッチした箇所へスペースかエンターで飛ぶ
-  let g:EasyMotion_enter_jump_first = 1
-  let g:EasyMotion_space_jump_first = 1
+repo        = 'Shougo/neosnippet.vim'
+on_i        = 1
+depends     = ['neosnippet-snippets']
+hook_source = '''
+  let g:neosnippet#enable_snipmate_compatibility = 1
+  let g:neosnippet#enable_completed_snippet = 1
+  let g:neosnippet#expand_word_boundary = 1
 
+  imap <C-a> <Plug>(neosnippet_expand_or_jump)
+  smap <C-a> <Plug>(neosnippet_expand_or_jump)
+  xmap <C-a> <Plug>(neosnippet_expand_target)
+'''
+
+[[plugins]]
+repo = 'Shougo/neosnippet-snippets'
+
+
+[[plugins]]
+repo     = 'Lokaltog/vim-easymotion'
+on_event = 'BufRead'
+hook_add = '''
   " s{char} で画面内検索
-  " nmap s <Plug>(easymotion-s2)
+  nmap s <Plug>(easymotion-s2)
 
   " f, t, F, TをEasyMotionにマッピング
   map f <Plug>(easymotion-fl)
@@ -95,11 +136,16 @@ hook_add = '''
   xmap g/ <Plug>(easymotion-sn)
   omap g/ <Plug>(easymotion-tn)
 '''
+hook_source = '''
+  " 最初にマッチした箇所へスペースかエンターで飛ぶ
+  let g:EasyMotion_enter_jump_first = 1
+  let g:EasyMotion_space_jump_first = 1
+'''
 
 
 [[plugins]]
-repo = 'junegunn/vim-easy-align'
-on_map = ['<Plug>(EasyAlign)']
+repo     = 'junegunn/vim-easy-align'
+on_map   = ['<Plug>(EasyAlign)']
 hook_add = '''
   " Start interactive EasyAlign in visual mode (e.g. vip<Enter>)
   vmap <Enter> <Plug>(EasyAlign)
@@ -110,56 +156,89 @@ hook_add = '''
 
 
 [[plugins]]
-repo = 'terryma/vim-multiple-cursors'
+repo        = 'kassio/neoterm'
+on_cmd      = ['T']
+hook_source = '''
+  nnoremap [neoterm] <Nop>
+  nmap <Space>n [neoterm]
+
+  nnoremap <silent> [neoterm]l :<C-u>Tclear<CR>
+  nnoremap <silent> [neoterm]x :<C-u>Tclose<CR>
+'''
+
+
+[[plugins]]
+repo   = 'terryma/vim-multiple-cursors'
 on_map = ['<C-n>']
 
 
 [[plugins]]
-repo = 'cespare/vim-toml'
-on_ft = ['toml']
-
-
-[[plugins]]
-repo = 'mattn/emmet-vim'
-on_ft = ['html', 'slim', 'eruby', 'css', 'scss', 'sass', 'php', 'styl', 'jade']
-hook_add = '''
+repo        = 'mattn/emmet-vim'
+on_i        = 1
+hook_source = '''
   let g:user_emmet_expandabbr_key = '<C-e>'
 '''
 
 
-on_ft = ['css', 'scss', 'sass']
+[[plugins]]
+repo             = 'kana/vim-submode'
+on_event         = 'BufRead'
+hook_post_source = '''
+  " http://d.hatena.ne.jp/thinca/20130131/1359567419
+  " Windowサイズの変更
+  call submode#enter_with('bufmove', 'n', '', 's>', '<C-w>>')
+  call submode#enter_with('bufmove', 'n', '', 's<', '<C-w><')
+  call submode#enter_with('bufmove', 'n', '', 's+', '<C-w>+')
+  call submode#enter_with('bufmove', 'n', '', 's-', '<C-w>-')
+  call submode#map('bufmove', 'n', '', '>', '<C-w>>') " s> >連打で幅を広げる
+  call submode#map('bufmove', 'n', '', '<', '<C-w><') " s< <連打で幅を減らす
+  call submode#map('bufmove', 'n', '', '+', '<C-w>+') " s+ +連打で高さを広げる
+  call submode#map('bufmove', 'n', '', '-', '<C-w>-') " s- -連打で高さを減らす
+
+  " Tab移動
+  call submode#enter_with('changetab', 'n', '', 'sn', 'gt')
+  call submode#enter_with('changetab', 'n', '', 'sp', 'gT')
+  call submode#map('changetab', 'n', '', 'n', 'gt') " sn n連打でタブを次へ移動する
+  call submode#map('changetab', 'n', '', 'p', 'gT') " sp p連打でタブを前へ戻る
+'''
 
 
 [[plugins]]
-repo = 'cakebaker/scss-syntax.vim'
+repo  = 'cespare/vim-toml'
+on_ft = ['toml']
+
+[[plugins]]
+repo  = 'cakebaker/scss-syntax.vim'
 on_ft = ['scss', 'sass']
 
-
 [[plugins]]
-repo = 'othree/html5.vim'
+repo  = 'othree/html5.vim'
 on_ft = ['html', 'php', 'eruby']
 
-
 [[plugins]]
-repo = 'vim-ruby/vim-ruby'
+repo  = 'vim-ruby/vim-ruby'
 on_ft = ['ruby']
 
-
 [[plugins]]
-repo = 'slim-template/vim-slim'
+repo  = 'slim-template/vim-slim'
 on_ft = ['slim']
 
-
 [[plugins]]
-repo = 'digitaltoad/vim-jade'
+repo  = 'digitaltoad/vim-jade'
 on_ft = ['jade', 'pug']
 
-
 [[plugins]]
-repo = 'othree/yajs.vim'
+repo  = 'othree/yajs.vim'
 on_ft = ['javascript']
 
+[[plugins]]
+repo  = 'alexlafroscia/postcss-syntax.vim'
+on_ft = ['css']
 
 [[plugins]]
-repo = 'alexlafroscia/postcss-syntax.vim'
-on_ft = ['css']
+repo  = 'leafgarland/typescript-vim'
+on_ft = ['typescript']
+
+[[plugins]]
+repo = 'posva/vim-vue'
+on_ft = ['vue']

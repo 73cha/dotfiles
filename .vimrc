@@ -22,6 +22,10 @@ filetype off " ファイル形式の検出を無効化
 " deinの設定
 " https://qiita.com/delphinus/items/00ff2c0ba972c6e41542
 " ---------------------------------------------------------------------------------
+if &compatible
+  set nocompatible
+endif
+
 " プラグインが実際にインストールされるディレクトリ
 let s:dein_dir = expand('~/.cache/dein')
 " dein.vim 本体
@@ -38,9 +42,6 @@ endif
 " 設定開始
 if dein#load_state(s:dein_dir)
   call dein#begin(s:dein_dir)
-
-  " deinのtomlに書くと動かない
-  call dein#add('kana/vim-submode')
 
   " プラグインリストを収めた TOML ファイル
   " 予め TOML ファイル（後述）を用意しておく
@@ -69,31 +70,12 @@ endif
 filetype plugin indent on
 
 
-" submode
-" deinのtomlに書くと動かない
-" ---------------------------------------------------------------------------------
-" http://d.hatena.ne.jp/thinca/20130131/1359567419
-" Windowサイズの変更
-call submode#enter_with('bufmove', 'n', '', 's>', '<C-w>>')
-call submode#enter_with('bufmove', 'n', '', 's<', '<C-w><')
-call submode#enter_with('bufmove', 'n', '', 's+', '<C-w>+')
-call submode#enter_with('bufmove', 'n', '', 's-', '<C-w>-')
-call submode#map('bufmove', 'n', '', '>', '<C-w>>') " s> >連打で幅を広げる
-call submode#map('bufmove', 'n', '', '<', '<C-w><') " s< <連打で幅を減らす
-call submode#map('bufmove', 'n', '', '+', '<C-w>+') " s+ +連打で高さを広げる
-call submode#map('bufmove', 'n', '', '-', '<C-w>-') " s- -連打で高さを減らす
-
-" Tab移動
-call submode#enter_with('changetab', 'n', '', 'sn', 'gt')
-call submode#enter_with('changetab', 'n', '', 'sp', 'gT')
-call submode#map('changetab', 'n', '', 'n', 'gt') " sn n連打でタブを次へ移動する
-call submode#map('changetab', 'n', '', 'p', 'gT') " sp p連打でタブを前へ戻る
-
-
-
 " カラースキームの設定 
 " ---------------------------------------------------------------------------------
 colorscheme monokai
+" colorscheme tender
+" colorscheme gruvbox 
+" colorscheme dracula
 " colorscheme solarized
 " colorscheme jellybeans
 " colorscheme iceberg
