@@ -67,10 +67,19 @@ augroup RiotTag
 augroup END
 
 
-" TypeScriptシンタックスハイライト
+" TypeScriptのファイルタイプセット
 " ---------------------------------------------------------------------------------
 augroup TypeScript
   autocmd!
 
   autocmd BufRead,BufNewFile *.ts :set filetype=typescript
+augroup END
+
+
+" *.css.erbのファイルタイプセット
+" ---------------------------------------------------------------------------------
+augroup ErubyCss
+  autocmd!
+
+  autocmd BufRead,BufNewFile *.css.erb :set filetype=css
 augroup END

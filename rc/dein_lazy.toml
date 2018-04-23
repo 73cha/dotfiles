@@ -75,10 +75,14 @@ repo        = 'prettier/vim-prettier'
 on_ft       = ['javascript', 'typescript', 'less', 'scss', 'json', 'graphql', 'markdown', 'vue', 'css']
 build       = 'npm install'
 hook_source = '''
+  nnoremap [prettier] <Nop>
+  nmap <Space>p [prettier]
+  nnoremap <silent> [prettier] :<C-u>PrettierAsync<CR>
+
   let g:prettier#autoformat = 0
   let g:prettier#quickfix_enabled = 0
 
-  autocmd BufWritePre *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql,*.md,*.vue PrettierAsync
+  " autocmd BufWritePre *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql,*.md,*.vue PrettierAsync
 '''
 
 
@@ -152,18 +156,6 @@ hook_add = '''
 
   " Start interactive EasyAlign for a motion/text object (e.g. gaip)
   nmap ga <Plug>(EasyAlign)
-'''
-
-
-[[plugins]]
-repo        = 'kassio/neoterm'
-on_cmd      = ['T']
-hook_source = '''
-  nnoremap [neoterm] <Nop>
-  nmap <Space>n [neoterm]
-
-  nnoremap <silent> [neoterm]l :<C-u>Tclear<CR>
-  nnoremap <silent> [neoterm]x :<C-u>Tclose<CR>
 '''
 
 

@@ -20,6 +20,7 @@ set lazyredraw
 " set guifont=RictyDiscord-Regular-Powerline:h15
 " set guifont=Roboto\ Mono\ Nerd\ Font\ Complete:h15
 
+
 " フォーマット
 " ---------------------------------------------------------------------------------
 " 新しい行のインデントを現在行と同じにする

@@ -133,18 +133,25 @@ repo = 'itchyny/vim-gitbranch'
 repo = 'tpope/vim-surround'
 
 
+# LanguageClientのhtml-languageserverについてのissue
+# https://github.com/autozimu/LanguageClient-neovim/issues/83
+# 各language-serverのリポジトリ
+# https://github.com/vuejs/vetur
+# https://github.com/sourcegraph/javascript-typescript-langserver
+# https://github.com/vscode-langservers/vscode-css-languageserver-bin
+# https://github.com/vscode-langservers/vscode-html-languageserver-bin
 [[plugins]]
-repo        = 'autozimu/LanguageClient-neovim'
-rev         = 'next'
-build       = 'bash install.sh'
+repo     = 'autozimu/LanguageClient-neovim'
+rev      = 'next'
+build    = 'bash install.sh'
 hook_add = '''
   set hidden
   let g:LanguageClient_serverCommands = {
   \ 'vue': ['vls'],
   \ 'javascript': ['javascript-typescript-stdio'],
   \ 'typescript': ['javascript-typescript-stdio'],
-  \ 'css': [''],
-  \ 'html': ['']
+  \ 'css': ['css-languageserver', '--stdio'],
+  \ 'html': ['html-languageserver', '--stdio']
   \ }
   let g:LanguageClient_autoStart = 1
   nnoremap <silent> K :call LanguageClient_textDocument_hover()<CR>
