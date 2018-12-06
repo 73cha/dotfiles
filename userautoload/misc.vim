@@ -22,21 +22,21 @@ endif
 
 " HTML,PHPを保存したら自動で整形
 " ---------------------------------------------------------------------------------
-function! s:pretty_html()
-  let cursor = getpos(".")
-
-  :normal gg=G
-
-  call setpos(".", cursor)
-
-  unlet cursor
-endfunction
-
-augroup HTML
-  autocmd!
-
-  autocmd BufWritePre *.html call <SID>pretty_html()
-augroup END
+" function! s:pretty_html()
+"   let cursor = getpos(".")
+"
+"   :normal gg=G
+"
+"   call setpos(".", cursor)
+"
+"   unlet cursor
+" endfunction
+"
+" augroup HTML
+"   autocmd!
+"
+"   autocmd BufWritePre *.html call <SID>pretty_html()
+" augroup END
 
 
 " CSS3シンタックスハイライト

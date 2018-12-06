@@ -196,6 +196,32 @@ hook_post_source = '''
 
 
 [[plugins]]
+repo        = 'osyo-manga/vim-precious'
+on_source   = 'context_filetype.vim'
+hook_source = '''
+  " insert mode に入った時に 'filetype' を切り換える。
+  " カーソル移動時の自動切り替えを無効化
+  let g:precious_enable_switch_CursorMoved = {
+  \ '*': 0
+  \ }
+  let g:precious_enable_switch_CursorMoved_i = {
+  \ '*': 0
+  \ }
+
+  " insert に入った時にスイッチし、抜けた時に元に戻す
+  augroup vimPrecious
+    autocmd!
+
+    autocmd InsertEnter * :PreciousSwitch
+    autocmd InsertLeave * :PreciousReset
+  augroup END
+'''
+
+[[plugins]]
+repo = 'gko/vim-coloresque'
+on_ft = ['css', 'scss', 'sass', 'vue']
+
+[[plugins]]
 repo  = 'cespare/vim-toml'
 on_ft = ['toml']
 

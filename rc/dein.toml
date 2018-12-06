@@ -17,7 +17,8 @@ build = 'make'
 
 
 [[plugins]]
-repo = 'Shougo/context_filetype.vim'
+repo    = 'Shougo/context_filetype.vim'
+depends = 'vim-precious'
 
 
 [[plugins]]
@@ -146,18 +147,22 @@ rev      = 'next'
 build    = 'bash install.sh'
 hook_add = '''
   set hidden
+
   let g:LanguageClient_serverCommands = {
   \ 'vue': ['vls'],
   \ 'javascript': ['javascript-typescript-stdio'],
   \ 'typescript': ['javascript-typescript-stdio'],
   \ 'css': ['css-languageserver', '--stdio'],
-  \ 'html': ['html-languageserver', '--stdio']
+  \ 'html': ['html-languageserver', '--stdio'],
+  \ 'ruby': ['language_server-ruby']
   \ }
   let g:LanguageClient_autoStart = 1
+
   nnoremap <silent> K :call LanguageClient_textDocument_hover()<CR>
   nnoremap <silent> gd :call LanguageClient_textDocument_definition()<CR>
   nnoremap <silent> <F2> :call LanguageClient_textDocument_rename()<CR>
 '''
+
 
 
 [[plugins]]
@@ -207,8 +212,6 @@ hook_add = '''
 '''
 
 
-# スプラッシュの引用元
-# https://gist.github.com/Kuniwak/7630711
 [[plugins]]
 repo     = 'mhinz/vim-startify'
 hook_add = '''
